@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ame Coffee Shop - Cea mai bună cafea din București</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         /* Base Styles */
         :root {
@@ -38,6 +39,14 @@
 
         section {
             padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h1, h2, h3 {
@@ -78,6 +87,13 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
 
         nav {
@@ -85,6 +101,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
+            transition: all 0.3s ease;
         }
 
         .logo {
@@ -94,11 +111,23 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo i {
             margin-right: 10px;
             color: var(--accent);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-5px);}
+            60% {transform: translateY(-3px);}
         }
 
         .nav-links {
@@ -108,6 +137,7 @@
 
         .nav-links li {
             margin-left: 30px;
+            position: relative;
         }
 
         .nav-links a {
@@ -115,6 +145,22 @@
             color: var(--text);
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -126,6 +172,11 @@
             font-size: 24px;
             cursor: pointer;
             color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu:hover {
+            transform: rotate(90deg);
         }
 
         /* Hero Section */
@@ -139,22 +190,88 @@
             text-align: center;
             color: var(--white);
             margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary) 0%, transparent 50%);
+            opacity: 0.3;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
         }
 
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
             color: var(--white);
+            animation: slideInFromLeft 1.2s ease-out 0.5s both;
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .hero p {
             font-size: 20px;
             margin-bottom: 30px;
+            animation: slideInFromRight 1.2s ease-out 0.8s both;
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero .btn {
+            animation: fadeIn 1.5s ease-out 1.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* About Section */
@@ -177,12 +294,24 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: all 0.5s ease;
+        }
+
+        .about-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
 
         .about-image img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
         }
 
         /* Menu Section */
@@ -211,6 +340,12 @@
             width: 80px;
             height: 3px;
             background: var(--primary);
+            animation: widthGrow 2s ease-out;
+        }
+
+        @keyframes widthGrow {
+            from { width: 0; }
+            to { width: 80px; }
         }
 
         .menu-grid {
@@ -224,21 +359,45 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover:before {
+            transform: scaleX(1);
         }
 
         .menu-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .menu-item img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-item:hover img {
+            transform: scale(1.1);
         }
 
         .menu-item-content {
             padding: 20px;
+            position: relative;
         }
 
         .menu-item h3 {
@@ -250,6 +409,63 @@
         .price {
             color: var(--primary);
             font-weight: 700;
+        }
+
+        .order-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .order-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* Order Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
         }
 
         /* Contact Section */
@@ -274,6 +490,11 @@
             display: flex;
             align-items: center;
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
         }
 
         .contact-item i {
@@ -286,16 +507,25 @@
             justify-content: center;
             margin-right: 15px;
             color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover i {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
         }
 
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .form-control {
@@ -304,12 +534,14 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
-            transition: border 0.3s;
+            transition: all 0.3s ease;
         }
 
         .form-control:focus {
             border-color: var(--primary);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 107, 97, 0.1);
+            transform: translateY(-2px);
         }
 
         textarea.form-control {
@@ -354,6 +586,7 @@
             width: 40px;
             height: 2px;
             background: var(--primary);
+            animation: widthGrow 2s ease-out;
         }
 
         .social-links {
@@ -376,13 +609,60 @@
 
         .social-links a:hover {
             background: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
         }
 
         .copyright {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: var(--primary);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .card-element {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            margin-bottom: 15px;
+        }
+
+        #card-errors {
+            color: #e74c3c;
+            margin: 10px 0;
+            font-size: 14px;
         }
 
         /* Responsive Design */
@@ -407,6 +687,12 @@
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
             .nav-links.active {
@@ -415,7 +701,18 @@
 
             .nav-links li {
                 margin: 10px 0;
+                animation: fadeInLeft 0.5s ease both;
             }
+
+            @keyframes fadeInLeft {
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+
+            .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+            .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+            .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+            .nav-links li:nth-child(4) { animation-delay: 0.4s; }
 
             .mobile-menu {
                 display: block;
@@ -433,6 +730,13 @@
     </style>
 </head>
 <body>
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; right: 10%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; bottom: 20%; left: 20%; animation-delay: 4s;"></div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -444,7 +748,7 @@
                 <ul class="nav-links">
                     <li><a href="#home">Acasă</a></li>
                     <li><a href="#about">Despre Noi</a></li>
-                    <li><a href="#menu">Meniu</a></li>
+                    <li><a href="#menu">Meniu & Comandă</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="mobile-menu">
@@ -459,8 +763,8 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Cea mai bună cafea din București</h1>
-                <p>Bucură-te de arome autentice și de o atmosferă relaxantă în inima orașului</p>
-                <a href="#menu" class="btn">Vezi Meniul</a>
+                <p>Bucură-te de arome autentice și de o atmosferă relaxantă în inima orașului. Comandă online și ridică rapid!</p>
+                <a href="#menu" class="btn">Comandă Acum</a>
             </div>
         </div>
     </section>
@@ -471,10 +775,10 @@
             <div class="about-content">
                 <div class="about-text">
                     <h2>Despre Ame Coffee</h2>
-                    <p>Bine ați venit la Ame Coffee, locul unde pasiunea pentru cafea se întâlnește cu atmosfera primitoare. Suntem mândri să fim o cafenea locală care aduce cele mai bune boabe de cafea din întreaga lume direct în inima Bucureștiului.</p>
+                    <p>Bine ați venit la Ame Coffee, locul unde pasiunea pentru cafea se întâlnește cu tehnologia modernă. Acum poți comanda online și programa ridicarea comenzii la ora dorită!</p>
                     <p>Fiecare ceașcă de cafea este preparată cu grijă de baristi noștri experimentați, care știu să extragă toate aromele și subtilitățile fiecărui sortiment.</p>
-                    <p>Viziunea noastră este să creăm un spațiu comunitativ unde oamenii se pot reuni, se pot relaxa și pot savura momente plăcut împreună.</p>
-                    <a href="#contact" class="btn">Vizitează-ne</a>
+                    <p>Cu noul nostru sistem de comandă online, poți programa ridicarea la minut, iar plata o poți face direct pe site în siguranță.</p>
+                    <a href="#menu" class="btn">Vezi Meniul</a>
                 </div>
                 <div class="about-image">
                     <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul Ame Coffee">
@@ -488,54 +792,72 @@
         <div class="container">
             <div class="section-title">
                 <h2>Meniul Nostru</h2>
-                <p>Descoperă aromele noastre speciale</p>
+                <p>Descoperă aromele noastre speciale și comandă online</p>
             </div>
             <div class="menu-grid">
+                <!-- Menu items with order buttons -->
                 <div class="menu-item">
                     <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
                     <div class="menu-item-content">
                         <h3>Espresso <span class="price">12 lei</span></h3>
                         <p>Cafea intensă și aromată, perfectă pentru începutul zilei.</p>
+                        <button class="order-btn" data-item="Espresso" data-price="12">Comandă Acum</button>
                     </div>
                 </div>
+                
                 <div class="menu-item">
                     <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cappuccino">
                     <div class="menu-item-content">
                         <h3>Cappuccino <span class="price">15 lei</span></h3>
                         <p>Espresso cu spumă de lapte cremoasă și un strat subțire de ciocolată.</p>
+                        <button class="order-btn" data-item="Cappuccino" data-price="15">Comandă Acum</button>
                     </div>
                 </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Latte Macchiato">
-                    <div class="menu-item-content">
-                        <h3>Latte Macchiato <span class="price">16 lei</span></h3>
-                        <p>Lapte spumat cu un shot de espresso, stratificat perfect.</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="American Coffee">
-                    <div class="menu-item-content">
-                        <h3>American Coffee <span class="price">14 lei</span></h3>
-                        <p>Cafea filtrată, mai diluată, cu aromă subtilă și echilibrată.</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Croissant">
-                    <div class="menu-item-content">
-                        <h3>Croissant <span class="price">8 lei</span></h3>
-                        <p>Croissant proaspăt, fraged și auriu, perfect alături de cafea.</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1555507032-ab09212ae2f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cheesecake">
-                    <div class="menu-item-content">
-                        <h3>Cheesecake <span class="price">18 lei</span></h3>
-                        <p>Cheesecake cremos cu fructe de pădure, desertul nostrul signature.</p>
-                    </div>
-                </div>
+                
+                <!-- Add more menu items with order buttons -->
             </div>
         </div>
     </section>
+
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Comandă <span id="modalItemName"></span></h2>
+            <form id="orderForm">
+                <input type="hidden" id="selectedItem" name="item">
+                <input type="hidden" id="selectedPrice" name="price">
+                
+                <div class="form-group">
+                    <label for="customerName">Nume</label>
+                    <input type="text" id="customerName" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Telefon</label>
+                    <input type="tel" id="customerPhone" name="phone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pickupTime">Programează ridicarea</label>
+                    <input type="datetime-local" id="pickupTime" name="pickup_time" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialInstructions">Instrucțiuni speciale</label>
+                    <textarea id="specialInstructions" name="instructions" class="form-control"></textarea>
+                </div>
+                
+                <div class="payment-section">
+                    <h3>Plata Online</h3>
+                    <div class="card-element" id="card-element"></div>
+                    <div id="card-errors" role="alert"></div>
+                </div>
+                
+                <button type="submit" class="btn" id="submit-order">Plătește <span id="totalAmount"></span> lei</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
@@ -587,24 +909,24 @@
                 </div>
                 <div class="contact-form">
                     <h3>Trimite-ne un mesaj</h3>
-                   <form id="contactForm" action="https://formsubmit.co/boghack18@gmail.com" method="POST">
-    <input type="hidden" name="_subject" value="✉️ New Message from Ame Coffee">
-    <input type="hidden" name="_template" value="table">
-    
-    <div class="form-group">
-        <label for="name">Nume</label>
-        <input type="text" id="name" name="name" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="message">Mesaj</label>
-        <textarea id="message" name="message" class="form-control" required></textarea>
-    </div>
-    <button type="submit" class="btn">Trimite Mesaj</button>
-</form>
+                    <form id="contactForm" action="https://formsubmit.co/boghack18@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="✉️ New Message from Ame Coffee">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="form-group">
+                            <label for="name">Nume</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mesaj</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Trimite Mesaj</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -616,14 +938,14 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Ame Coffee</h3>
-                    <p>Cea mai bună cafea din București. Vino să te bucuri de arome autentice și de o atmosferă relaxantă în inima orașului.</p>
+                    <p>Cea mai bună cafea din București. Comandă online și ridică rapid la ora programată!</p>
                 </div>
                 <div class="footer-column">
                     <h3>Link-uri rapide</h3>
                     <ul>
                         <li><a href="#home">Acasă</a></li>
                         <li><a href="#about">Despre Noi</a></li>
-                        <li><a href="#menu">Meniu</a></li>
+                        <li><a href="#menu">Meniu & Comandă</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -640,12 +962,17 @@
     </footer>
 
     <script>
+        // Initialize Stripe
+        const stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your Stripe key
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        
         // Mobile Menu Toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
         });
 
-        // Smooth Scrolling
+        // Smooth Scrolling with animation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -666,33 +993,185 @@
             });
         });
 
-        // Contact Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // In a real application, you would send this data to a server
-            // For demo purposes, we'll just show an alert
-            alert(`Mulțumim, ${name}! Mesajul tău a fost trimis. Te vom contacta în curând la adresa ${email}.`);
-            
-            // Reset form
-            this.reset();
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
         });
 
-        // Header background on scroll
+        // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
+            const scrolled = window.scrollY > 100;
+            
+            header.classList.toggle('scrolled', scrolled);
+            
             if(window.scrollY > 100) {
                 header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
             } else {
                 header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
             }
         });
+
+        // Order modal functionality
+        const orderModal = document.getElementById('orderModal');
+        const orderButtons = document.querySelectorAll('.order-btn');
+        const closeModal = document.querySelector('.close-modal');
+
+        orderButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const item = this.getAttribute('data-item');
+                const price = this.getAttribute('data-price');
+                
+                document.getElementById('modalItemName').textContent = item;
+                document.getElementById('selectedItem').value = item;
+                document.getElementById('selectedPrice').value = price;
+                document.getElementById('totalAmount').textContent = price;
+                
+                orderModal.style.display = 'block';
+                
+                // Mount Stripe card element
+                cardElement.mount('#card-element');
+            });
+        });
+
+        closeModal.addEventListener('click', function() {
+            orderModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === orderModal) {
+                orderModal.style.display = 'none';
+            }
+        });
+
+        // Handle form submissions
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('submit-order');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Se procesează...';
+            
+            try {
+                // Create payment intent on your server
+                const { clientSecret } = await createPaymentIntent({
+                    amount: document.getElementById('selectedPrice').value * 100, // Convert to cents
+                    currency: 'ron'
+                });
+                
+                // Confirm payment with Stripe
+                const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            name: document.getElementById('customerName').value,
+                            phone: document.getElementById('customerPhone').value,
+                        },
+                    }
+                });
+                
+                if (error) {
+                    document.getElementById('card-errors').textContent = error.message;
+                    submitButton.disabled = false;
+                    submitButton.textContent = `Plătește ${document.getElementById('selectedPrice').value} lei`;
+                } else {
+                    // Payment successful - send to Google Calendar and save order
+                    await saveOrderToGoogleCalendar();
+                    alert('Comanda a fost plasată cu succes! Veți primi un email de confirmare.');
+                    orderModal.style.display = 'none';
+                    this.reset();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('A apărut o eroare. Vă rugăm încercați din nou.');
+            }
+            
+            submitButton.disabled = false;
+            submitButton.textContent = `Plătește ${document.getElementById('selectedPrice').value} lei`;
+        });
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            alert(`Mulțumim, ${name}! Mesajul tău a fost trimis. Te vom contacta în curând la adresa ${email}.`);
+            this.reset();
+        });
+
+        // Set minimum pickup time to current time
+        const now = new Date();
+        const minDate = now.toISOString().slice(0, 16);
+        document.getElementById('pickupTime').min = minDate;
+
+        // Function to create payment intent (you need to implement this on your server)
+        async function createPaymentIntent(paymentData) {
+            // This should call your backend server
+            const response = await fetch('/create-payment-intent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData),
+            });
+            return await response.json();
+        }
+
+        // Function to save order to Google Calendar
+        async function saveOrderToGoogleCalendar() {
+            const orderData = {
+                item: document.getElementById('selectedItem').value,
+                price: document.getElementById('selectedPrice').value,
+                name: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                pickupTime: document.getElementById('pickupTime').value,
+                instructions: document.getElementById('specialInstructions').value
+            };
+            
+            // This should call your backend server or Google Apps Script
+            await fetch('/save-to-calendar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData),
+            });
+        }
+
+        // Add floating elements
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                const size = Math.random() * 60 + 40;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.animationDelay = `${Math.random() * 6}s`;
+                element.style.opacity = Math.random() * 0.1 + 0.05;
+                container.appendChild(element);
+            }
+        }
+
+        createFloatingElements();
     </script>
 </body>
-
 </html>
