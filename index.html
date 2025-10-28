@@ -820,45 +820,45 @@
     </section>
 
         <!-- Order Modal -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Comandă <span id="modalItemName"></span></h2>
-            <form id="orderForm">
-                <input type="hidden" id="selectedItem" name="item">
-                <input type="hidden" id="selectedPrice" name="price">
-                
-                <div class="form-group">
-                    <label for="customerName">Nume</label>
-                    <input type="text" id="customerName" name="name" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="customerPhone">Telefon</label>
-                    <input type="tel" id="customerPhone" name="phone" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="pickupTime">Programează ridicarea</label>
-                    <input type="datetime-local" id="pickupTime" name="pickup_time" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="specialInstructions">Instrucțiuni speciale</label>
-                    <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, etc."></textarea>
-                </div>
-                
-                <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                    <h4>Sumar comandă</h4>
-                    <p><strong>Produs:</strong> <span id="summaryItem"></span></p>
-                    <p><strong>Preț:</strong> <span id="summaryPrice"></span> lei</p>
-                    <p style="color: var(--accent); font-weight: bold;">Plata se face la ridicarea comenzii</p>
-                </div>
-                
-                <button type="submit" class="btn" id="submit-order">Confirmă Comanda</button>
-            </form>
-        </div>
+<div class="modal" id="orderModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Comandă <span id="modalItemName"></span></h2>
+        <form id="orderForm">
+            <input type="hidden" id="selectedItem" name="item">
+            <input type="hidden" id="selectedPrice" name="price">
+            
+            <div class="form-group">
+                <label for="customerName">Nume</label>
+                <input type="text" id="customerName" name="name" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="customerPhone">Telefon</label>
+                <input type="tel" id="customerPhone" name="phone" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="pickupTime">Programează ridicarea</label>
+                <input type="datetime-local" id="pickupTime" name="pickup_time" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="specialInstructions">Instrucțiuni speciale</label>
+                <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, etc."></textarea>
+            </div>
+            
+            <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4>Sumar comandă</h4>
+                <p><strong>Produs:</strong> <span id="summaryItem"></span></p>
+                <p><strong>Preț:</strong> <span id="summaryPrice"></span> lei</p>
+                <p style="color: var(--accent); font-weight: bold;">Plata se face la ridicarea comenzii</p>
+            </div>
+            
+            <button type="submit" class="btn" id="submit-order">Confirmă Comanda</button>
+        </form>
     </div>
+</div>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
@@ -960,177 +960,219 @@
     </footer>
 
     <script>
-        // Initialize Stripe
-        const stripe = Stripe('pk_test_your_publishable_key_here');
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
+    // Mobile Menu Toggle
+    document.querySelector('.mobile-menu').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // Smooth Scrolling with animation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if(targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if(targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                document.querySelector('.nav-links').classList.remove('active');
+            }
+        });
+    });
+
+    // Scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        const scrolled = window.scrollY > 100;
         
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+        header.classList.toggle('scrolled', scrolled);
+        
+        if(window.scrollY > 100) {
+            header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+        } else {
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        }
+    });
 
-        // Smooth Scrolling with animation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('.nav-links').classList.remove('active');
-                }
-            });
-        });
+    // Order modal functionality
+    const orderModal = document.getElementById('orderModal');
+    const orderButtons = document.querySelectorAll('.order-btn');
+    const closeModal = document.querySelector('.close-modal');
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const scrolled = window.scrollY > 100;
+    orderButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const item = this.getAttribute('data-item');
+            const price = this.getAttribute('data-price');
             
-            header.classList.toggle('scrolled', scrolled);
+            document.getElementById('modalItemName').textContent = item;
+            document.getElementById('selectedItem').value = item;
+            document.getElementById('selectedPrice').value = price;
+            document.getElementById('summaryItem').textContent = item;
+            document.getElementById('summaryPrice').textContent = price;
             
-            if(window.scrollY > 100) {
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            }
+            orderModal.style.display = 'block';
         });
+    });
 
-        // Order modal functionality
-        const orderModal = document.getElementById('orderModal');
-        const orderButtons = document.querySelectorAll('.order-btn');
-        const closeModal = document.querySelector('.close-modal');
+    closeModal.addEventListener('click', function() {
+        orderModal.style.display = 'none';
+    });
 
-        orderButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const item = this.getAttribute('data-item');
-                const price = this.getAttribute('data-price');
-                
-                document.getElementById('modalItemName').textContent = item;
-                document.getElementById('selectedItem').value = item;
-                document.getElementById('selectedPrice').value = price;
-                document.getElementById('totalAmount').textContent = price;
-                
-                orderModal.style.display = 'block';
-                cardElement.mount('#card-element');
-            });
-        });
-
-        closeModal.addEventListener('click', function() {
+    window.addEventListener('click', function(e) {
+        if (e.target === orderModal) {
             orderModal.style.display = 'none';
-        });
+        }
+    });
 
-        window.addEventListener('click', function(e) {
-            if (e.target === orderModal) {
-                orderModal.style.display = 'none';
-            }
-        });
-
-        // Handle order form submissions
-        document.getElementById('orderForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitButton = document.getElementById('submit-order');
-            submitButton.disabled = true;
-            submitButton.textContent = 'Se procesează...';
-            
-            try {
-                // Payment processing would go here
-                // For now, just save the order
-                await saveOrderToGoogleCalendar();
-                alert('Comanda a fost plasată cu succes! Veți primi un email de confirmare.');
-                orderModal.style.display = 'none';
-                this.reset();
-            } catch (error) {
-                console.error('Error:', error);
-                alert('A apărut o eroare. Vă rugăm încercați din nou.');
-            }
-            
-            submitButton.disabled = false;
-            submitButton.textContent = `Plătește ${document.getElementById('selectedPrice').value} lei`;
-        });
-
-        // Contact Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            alert(`Mulțumim, ${name}! Mesajul tău a fost trimis. Te vom contacta în curând la adresa ${email}.`);
-            this.reset();
-        });
-
-        // Set minimum pickup time to current time
-        const now = new Date();
-        const minDate = now.toISOString().slice(0, 16);
-        document.getElementById('pickupTime').min = minDate;
-
-        // Function to save order to Google Calendar
-        async function saveOrderToGoogleCalendar() {
+    // Handle order form submissions
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitButton = document.getElementById('submit-order');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Se procesează...';
+        
+        try {
+            // Собираем данные заказа
             const orderData = {
                 item: document.getElementById('selectedItem').value,
                 price: document.getElementById('selectedPrice').value,
                 name: document.getElementById('customerName').value,
                 phone: document.getElementById('customerPhone').value,
                 pickupTime: document.getElementById('pickupTime').value,
-                instructions: document.getElementById('specialInstructions').value
+                instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
             };
             
-            await fetch('https://script.google.com/macros/s/AKfycbz1FlBtA8Y5KglnHIOp02FCzHdQ-zds69VYBQ5-8lpcGCRIw56xJ-M_DvaYgZbHVpDY2A/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData),
-            });
+            // Отправляем заказ в Google Apps Script
+            await sendOrderToGoogleScript(orderData);
+            
+            alert('Comanda a fost plasată cu succes! Veți primi o confirmare în curând.');
+            orderModal.style.display = 'none';
+            this.reset();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('A apărut o eroare. Vă rugăm încercați din nou sau contactați-ne direct.');
         }
+        
+        submitButton.disabled = false;
+        submitButton.textContent = 'Confirmă Comanda';
+    });
 
-        // Add floating elements
-        function createFloatingElements() {
-            const container = document.querySelector('.floating-elements');
-            for (let i = 0; i < 5; i++) {
-                const element = document.createElement('div');
-                element.className = 'floating-element';
-                const size = Math.random() * 60 + 40;
-                element.style.width = `${size}px`;
-                element.style.height = `${size}px`;
-                element.style.top = `${Math.random() * 100}%`;
-                element.style.left = `${Math.random() * 100}%`;
-                element.style.animationDelay = `${Math.random() * 6}s`;
-                element.style.opacity = Math.random() * 0.1 + 0.05;
-                container.appendChild(element);
-            }
+    // Contact Form Submission
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        submitButton.disabled = true;
+        submitButton.textContent = 'Se trimite...';
+        
+        try {
+            const contactData = {
+                type: 'contact_form',
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+            
+            await sendContactToGoogleScript(contactData);
+            
+            alert(`Mulțumim, ${contactData.name}! Mesajul tău a fost trimis. Te vom contacta în curând la adresa ${contactData.email}.`);
+            this.reset();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('A apărut o eroare la trimiterea mesajului. Vă rugăm încercați din nou.');
         }
+        
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+    });
 
-        createFloatingElements();
-    </script>
+    // Set minimum pickup time to current time
+    const now = new Date();
+    const minDate = now.toISOString().slice(0, 16);
+    document.getElementById('pickupTime').min = minDate;
+
+    // Функция для отправки заказа в Google Apps Script
+    async function sendOrderToGoogleScript(orderData) {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz1FlBtA8Y5KglnHIOp02FCzHdQ-zds69VYBQ5-8lpcGCRIw56xJ-M_DvaYgZbHVpDY2A/exec';
+        
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        return await response.json();
+    }
+
+    // Функция для отправки контактной формы в Google Apps Script
+    async function sendContactToGoogleScript(contactData) {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz1FlBtA8Y5KglnHIOp02FCzHdQ-zds69VYBQ5-8lpcGCRIw56xJ-M_DvaYgZbHVpDY2A/exec';
+        
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contactData),
+        });
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        return await response.json();
+    }
+
+    // Add floating elements
+    function createFloatingElements() {
+        const container = document.querySelector('.floating-elements');
+        for (let i = 0; i < 5; i++) {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            const size = Math.random() * 60 + 40;
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            element.style.top = `${Math.random() * 100}%`;
+            element.style.left = `${Math.random() * 100}%`;
+            element.style.animationDelay = `${Math.random() * 6}s`;
+            element.style.opacity = Math.random() * 0.1 + 0.05;
+            container.appendChild(element);
+        }
+    }
+
+    createFloatingElements();
+</script>
 </body>
 </html>
