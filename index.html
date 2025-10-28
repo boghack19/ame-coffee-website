@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -1145,13 +1146,13 @@
             };
             
             // This should call your backend server or Google Apps Script
-            await fetch('/save-to-calendar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData),
-            });
+            await fetch('https://script.google.com/macros/s/AKfycbzVX51qqhD326Tkvul5CYlzEvx121_xn2Dau8-j_cZ7cjwI1LJz1tuM80bUL9aStoI32Q/exec', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(orderData),
+});
         }
 
         // Add floating elements
