@@ -1121,30 +1121,46 @@
         submitButton.textContent = originalText;
     });
 
-    // Function to send data to Google Apps Script
-    async function sendToGoogleScript(data) {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwzVLEWXvwQAJrwy7KNboTH48-9oQx7Tfxt4fBfRscp1x3W-O9HlewLkl1uYjcW0d11zg/exec';
-        
-        try {
-            const response = await fetch(scriptURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            
-            return await response.json();
-        } catch (error) {
-            console.error('Error sending to Google Script:', error);
-            // Even if there's an error, we consider it successful for the user
-            return { status: 'success' };
-        }
+    // Function to send data directly to Telegram
+async function sendToGoogleScript(data) {
+    const telegramToken = '8128731309:AAEoQ4J_05jZc9QCGYlHvQZsRfPvjfExBys';
+    const chatId = '5222030484';
+    
+    let message = '';
+    
+    if (data.type === 'contact_form') {
+        message = `📩 *MESAJ NOU DE PE SITE!*\n\n👤 *${data.name}*\n📧 *${data.email}*\n💬 ${data.message}`;
+    } else {
+        const formattedTime = new Date(data.pickupTime).toLocaleString('ro-RO');
+        message = `🆕 *NOUĂ COMANDA!*\n\n☕ *${data.item}*\n💰 *${data.price} lei*\n👤 *${data.name}*\n📞 *${data.phone}*\n⏰ *${formattedTime}*\n📝 ${data.instructions || 'Fără instrucțiuni'}`;
     }
+    
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Telegram API error: ${response.status}`);
+        }
+        
+        console.log('Message sent to Telegram successfully!');
+        return { status: 'success' };
+        
+    } catch (error) {
+        console.error('Error sending to Telegram:', error);
+        // Даже если ошибка, считаем успешным для пользователя
+        return { status: 'success' };
+    }
+}
 
     // Add floating elements
     function createFloatingElements() {
