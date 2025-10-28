@@ -787,7 +787,7 @@
         </div>
     </section>
 
-    <!-- Menu Section -->
+     <!-- Menu Section -->
     <section class="menu" id="menu">
         <div class="container">
             <div class="section-title">
@@ -795,13 +795,13 @@
                 <p>Descoperă aromele noastre speciale și comandă online</p>
             </div>
             <div class="menu-grid">
-                <!-- Menu items with order buttons -->
+                <!-- Coffee Items -->
                 <div class="menu-item">
                     <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
                     <div class="menu-item-content">
                         <h3>Espresso <span class="price">12 lei</span></h3>
                         <p>Cafea intensă și aromată, perfectă pentru începutul zilei.</p>
-                        <button class="order-btn" data-item="Espresso" data-price="12">Comandă Acum</button>
+                        <button class="order-btn" data-item="Espresso" data-price="12">Adaugă în comandă</button>
                     </div>
                 </div>
                 
@@ -810,55 +810,81 @@
                     <div class="menu-item-content">
                         <h3>Cappuccino <span class="price">15 lei</span></h3>
                         <p>Espresso cu spumă de lapte cremoasă și un strat subțire de ciocolată.</p>
-                        <button class="order-btn" data-item="Cappuccino" data-price="15">Comandă Acum</button>
+                        <button class="order-btn" data-item="Cappuccino" data-price="15">Adaugă în comandă</button>
                     </div>
                 </div>
-                
-                <!-- Add more menu items with order buttons -->
+
+                <!-- Food Items -->
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Croissant">
+                    <div class="menu-item-content">
+                        <h3>Croissant <span class="price">8 lei</span></h3>
+                        <p>Croissant proaspăt cu unt, crocant și pufos.</p>
+                        <button class="order-btn" data-item="Croissant" data-price="8">Adaugă în comandă</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Sandviș">
+                    <div class="menu-item-content">
+                        <h3>Sandviș Proaspăt <span class="price">18 lei</span></h3>
+                        <p>Sandviș cu șuncă, cașcaval, salată și roșii proaspete.</p>
+                        <button class="order-btn" data-item="Sandviș Proaspăt" data-price="18">Adaugă în comandă</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Summary -->
+            <div id="cart-summary" style="display: none; margin-top: 40px; padding: 20px; background: var(--white); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h3 style="text-align: center; margin-bottom: 20px;">Coșul tău</h3>
+                <div id="cart-items"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="finalize-order" class="btn" style="margin-right: 10px;">Finalizează Comanda</button>
+                    <button id="clear-cart" class="btn" style="background: var(--secondary); color: var(--text);">Golește Coșul</button>
+                </div>
             </div>
         </div>
     </section>
 
         <!-- Order Modal -->
-<div class="modal" id="orderModal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h2>Comandă <span id="modalItemName"></span></h2>
-        <form id="orderForm">
-            <input type="hidden" id="selectedItem" name="item">
-            <input type="hidden" id="selectedPrice" name="price">
-            
-            <div class="form-group">
-                <label for="customerName">Nume</label>
-                <input type="text" id="customerName" name="name" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="customerPhone">Telefon</label>
-                <input type="tel" id="customerPhone" name="phone" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="pickupTime">Programează ridicarea</label>
-                <input type="datetime-local" id="pickupTime" name="pickup_time" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="specialInstructions">Instrucțiuni speciale</label>
-                <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, etc."></textarea>
-            </div>
-            
-            <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <h4>Sumar comandă</h4>
-                <p><strong>Produs:</strong> <span id="summaryItem"></span></p>
-                <p><strong>Preț:</strong> <span id="summaryPrice"></span> lei</p>
-                <p style="color: var(--accent); font-weight: bold;">Plata se face la ridicarea comenzii</p>
-            </div>
-            
-            <button type="submit" class="btn" id="submit-order">Confirmă Comanda</button>
-        </form>
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Finalizează Comanda</h2>
+            <form id="orderForm">
+                <input type="hidden" id="selectedItems" name="items">
+                <input type="hidden" id="totalPrice" name="totalPrice">
+                
+                <div class="form-group">
+                    <label for="customerName">Nume</label>
+                    <input type="text" id="customerName" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Telefon</label>
+                    <input type="tel" id="customerPhone" name="phone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pickupTime">Programează ridicarea</label>
+                    <input type="datetime-local" id="pickupTime" name="pickup_time" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialInstructions">Instrucțiuni speciale</label>
+                    <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, etc."></textarea>
+                </div>
+                
+                <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h4>Sumar comandă</h4>
+                    <div id="order-summary"></div>
+                    <p style="color: var(--accent); font-weight: bold; margin-top: 15px;">Plata se face la ridicarea comenzii</p>
+                </div>
+                
+                <button type="submit" class="btn" id="submit-order">Confirmă Comanda</button>
+            </form>
+        </div>
     </div>
-</div>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
@@ -1190,7 +1216,7 @@ async function sendToGoogleScript(data) {
         </a>
         
         <p style="color: #888; font-size: 14px; margin: 15px 0;">
-            WhatsApp se va deschide automat în 3 secunde...
+            Deschideti WhatsApp pentru a continua...
         </p>
         
         <button onclick="document.getElementById('whatsapp-modal').remove()" style="
