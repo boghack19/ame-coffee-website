@@ -816,7 +816,7 @@
 
                 <!-- Food Items -->
                 <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Croissant">
+                    <img src="https://images.unsplash.com/photo-1555507036-7b0fdc45626d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Croissant">
                     <div class="menu-item-content">
                         <h3>Croissant <span class="price">8 lei</span></h3>
                         <p>Croissant proaspăt cu unt, crocant și pufos.</p>
@@ -1045,29 +1045,7 @@
 
     // Order modal functionality
     const orderModal = document.getElementById('orderModal');
-    const orderButtons = document.querySelectorAll('.order-btn');
     const closeModal = document.querySelector('.close-modal');
-
-    orderButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const item = this.getAttribute('data-item');
-            const price = this.getAttribute('data-price');
-            
-            document.getElementById('modalItemName').textContent = item;
-            document.getElementById('selectedItem').value = item;
-            document.getElementById('selectedPrice').value = price;
-            document.getElementById('summaryItem').textContent = item;
-            document.getElementById('summaryPrice').textContent = price;
-            
-            // Set minimum pickup time to current time + 30 minutes
-            const now = new Date();
-            now.setMinutes(now.getMinutes() + 30);
-            const minDate = now.toISOString().slice(0, 16);
-            document.getElementById('pickupTime').min = minDate;
-            
-            orderModal.style.display = 'block';
-        });
-    });
 
     closeModal.addEventListener('click', function() {
         orderModal.style.display = 'none';
@@ -1077,42 +1055,6 @@
         if (e.target === orderModal) {
             orderModal.style.display = 'none';
         }
-    });
-
-    // Handle order form submissions
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitButton = document.getElementById('submit-order');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Se procesează...';
-        
-        try {
-            // Collect order data
-            const orderData = {
-                item: document.getElementById('selectedItem').value,
-                price: document.getElementById('selectedPrice').value,
-                name: document.getElementById('customerName').value,
-                phone: document.getElementById('customerPhone').value,
-                pickupTime: document.getElementById('pickupTime').value,
-                instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
-            };
-            
-            // Send order to Google Apps Script
-            await sendToGoogleScript(orderData);
-            
-            alert('Comanda a fost plasată cu succes! Veți primi o confirmare în curând.');
-            orderModal.style.display = 'none';
-            this.reset();
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Comanda a fost primită! Vă vom contacta în curând pentru confirmare.');
-            orderModal.style.display = 'none';
-            this.reset();
-        }
-        
-        submitButton.disabled = false;
-        submitButton.textContent = 'Confirmă Comanda';
     });
 
     // Contact Form Submission
@@ -1147,110 +1089,273 @@
         submitButton.textContent = originalText;
     });
 
-  // Function to send data to WhatsApp - SAFE VERSION
-async function sendToGoogleScript(data) {
-    const phoneNumber = '40729552767'; // Your phone number
-    
-    let message = '';
-    
-    if (data.type === 'contact_form') {
-        message = `📩 MESAJ NOU DE PE SITE\n\n👤 Nume: ${data.name}\n📧 Email: ${data.email}\n💬 Mesaj: ${data.message}`;
-    } else {
-        const formattedTime = new Date(data.pickupTime).toLocaleString('ro-RO');
-        message = `🆕 COMANDA NOUĂ\n\n☕ Produs: ${data.item}\n💰 Preț: ${data.price} lei\n👤 Nume: ${data.name}\n📞 Telefon: ${data.phone}\n⏰ Ora ridicare: ${formattedTime}\n📝 Instrucțiuni: ${data.instructions || 'Fără instrucțiuni speciale'}`;
+    // ========== SHOPPING CART FUNCTIONALITY ==========
+    let cart = [];
+
+    // Add to cart function
+    function addToCart(item, price) {
+        const existingItem = cart.find(cartItem => cartItem.name === item);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: item,
+                price: parseFloat(price),
+                quantity: 1
+            });
+        }
+        
+        updateCartDisplay();
+        showCart();
     }
-    
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    
-    // Create modal window
-    const modal = document.createElement('div');
-    modal.id = 'whatsapp-modal';
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    `;
-    
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    `;
-    
-    modalContent.innerHTML = `
-        <div style="margin-bottom: 20px;">
-            <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
-            <h3 style="color: #5D4037; margin-bottom: 10px; font-size: 24px;">Comandă Finalizată!</h3>
-            <p style="color: #666; margin-bottom: 20px;">Apasă butonul pentru a trimite detaliile comenzii pe WhatsApp</p>
-        </div>
+
+    // Update cart display
+    function updateCartDisplay() {
+        const cartItems = document.getElementById('cart-items');
+        const cartSummary = document.getElementById('cart-summary');
         
-        <a href="${whatsappUrl}" target="_blank" style="
-            display: block;
-            background: #25D366;
-            color: white;
-            padding: 16px 24px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            margin: 20px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)'" 
-           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
-            📱 Deschide WhatsApp
-        </a>
+        if (cart.length === 0) {
+            cartSummary.style.display = 'none';
+            return;
+        }
         
-        <p style="color: #888; font-size: 14px; margin: 15px 0;">
-            Deschideti WhatsApp pentru a continua...
-        </p>
+        cartSummary.style.display = 'block';
         
-        <button onclick="document.getElementById('whatsapp-modal').remove()" style="
-            background: #8B6B61;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        " onmouseover="this.style.background='#5D4037'" 
-           onmouseout="this.style.background='#8B6B61'">
-            Închide fereastra
-        </button>
-    `;
-    
-    modal.appendChild(modalContent);
-    document.body.appendChild(modal);
-    
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.remove();
+        let html = '';
+        let total = 0;
+        
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            html += `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
+                    <div>
+                        <strong>${item.name}</strong>
+                        <br>
+                        <small>${item.price} lei × ${item.quantity}</small>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold;">${itemTotal} lei</span>
+                        <button onclick="removeFromCart(${index})" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">Șterge</button>
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `<div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary);">
+                    <strong>Total:</strong>
+                    <strong>${total} lei</strong>
+                 </div>`;
+        
+        cartItems.innerHTML = html;
+    }
+
+    // Remove from cart
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCartDisplay();
+    }
+
+    // Show cart
+    function showCart() {
+        const cartSummary = document.getElementById('cart-summary');
+        if (cart.length > 0) {
+            cartSummary.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // Update order buttons to add to cart
+    document.querySelectorAll('.order-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const item = this.getAttribute('data-item');
+            const price = this.getAttribute('data-price');
+            addToCart(item, price);
+            
+            // Show confirmation
+            const originalText = this.textContent;
+            this.textContent = '✓ Adăugat!';
+            this.style.background = 'var(--accent)';
+            
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.background = 'var(--primary)';
+            }, 2000);
+        });
+    });
+
+    // Finalize order button
+    document.getElementById('finalize-order').addEventListener('click', function() {
+        if (cart.length === 0) {
+            alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
+            return;
+        }
+        
+        // Prepare order data
+        const orderSummary = document.getElementById('order-summary');
+        let summaryHtml = '';
+        let total = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            summaryHtml += `<p>${item.name} - ${item.quantity} × ${item.price} lei = ${itemTotal} lei</p>`;
+        });
+        
+        summaryHtml += `<p style="font-weight: bold; margin-top: 10px; color: var(--accent);">Total: ${total} lei</p>`;
+        orderSummary.innerHTML = summaryHtml;
+        
+        // Set hidden fields
+        document.getElementById('selectedItems').value = JSON.stringify(cart);
+        document.getElementById('totalPrice').value = total;
+        
+        // Set minimum pickup time
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 30);
+        const minDate = now.toISOString().slice(0, 16);
+        document.getElementById('pickupTime').min = minDate;
+        document.getElementById('pickupTime').value = minDate;
+        
+        // Show modal
+        document.getElementById('orderModal').style.display = 'block';
+    });
+
+    // Clear cart button
+    document.getElementById('clear-cart').addEventListener('click', function() {
+        if (confirm('Sigur doriți să goliți coșul?')) {
+            cart = [];
+            updateCartDisplay();
         }
     });
-    
-    // Auto-open WhatsApp after 3 seconds
-    setTimeout(() => {
-        window.open(whatsappUrl, '_blank');
-    }, 3000);
-    
-    return { status: 'success' };
-}
+
+    // Update order form submission to handle cart
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitButton = document.getElementById('submit-order');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Se procesează...';
+        
+        try {
+            // Collect order data with cart items
+            const orderData = {
+                items: document.getElementById('selectedItems').value,
+                totalPrice: document.getElementById('totalPrice').value,
+                name: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                pickupTime: document.getElementById('pickupTime').value,
+                instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
+            };
+            
+            // Send order to WhatsApp
+            await sendToGoogleScript(orderData);
+            
+            alert('Comanda a fost plasată cu succes! Veți primi o confirmare în curând.');
+            orderModal.style.display = 'none';
+            this.reset();
+            
+            // Clear cart after successful order
+            cart = [];
+            updateCartDisplay();
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Comanda a fost primită! Vă vom contacta în curând pentru confirmare.');
+            orderModal.style.display = 'none';
+            this.reset();
+        }
+        
+        submitButton.disabled = false;
+        submitButton.textContent = 'Confirmă Comanda';
+    });
+    // ========== END SHOPPING CART ==========
+
+    // Function to send data to WhatsApp - UPDATED FOR CART
+    async function sendToGoogleScript(data) {
+        const phoneNumber = '40729552767';
+        
+        let message = '';
+        
+        if (data.type === 'contact_form') {
+            message = `📩 MESAJ NOU DE PE SITE\n\n👤 Nume: ${data.name}\n📧 Email: ${data.email}\n💬 Mesaj: ${data.message}`;
+        } else {
+            const formattedTime = new Date(data.pickupTime).toLocaleString('ro-RO');
+            
+            // Handle cart items
+            let itemsText = '';
+            let total = 0;
+            
+            if (data.items) {
+                const items = JSON.parse(data.items);
+                items.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    itemsText += `• ${item.name} - ${item.quantity} × ${item.price} lei = ${itemTotal} lei\n`;
+                });
+            }
+            
+            message = `🆕 COMANDA NOUĂ\n\n📦 PRODUSE:\n${itemsText}\n💰 TOTAL: ${total} lei\n👤 Nume: ${data.name}\n📞 Telefon: ${data.phone}\n⏰ Ora ridicare: ${formattedTime}\n📝 Instrucțiuni: ${data.instructions}`;
+        }
+        
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        
+        // Create modal window
+        const modal = document.createElement('div');
+        modal.id = 'whatsapp-modal';
+        modal.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); display: flex; justify-content: center; 
+            align-items: center; z-index: 10000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        `;
+        
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+            background: white; padding: 30px; border-radius: 15px; text-align: center; 
+            max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        `;
+        
+        modalContent.innerHTML = `
+            <div style="margin-bottom: 20px;">
+                <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+                <h3 style="color: #5D4037; margin-bottom: 10px; font-size: 24px;">Comandă Finalizată!</h3>
+                <p style="color: #666; margin-bottom: 20px;">Apasă butonul pentru a trimite comanda pe WhatsApp</p>
+            </div>
+            
+            <a href="${whatsappUrl}" target="_blank" style="
+                display: block; background: #25D366; color: white; padding: 16px 24px; 
+                border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 18px; 
+                margin: 20px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)'" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
+                📱 Deschide WhatsApp
+            </a>
+            
+            <button onclick="document.getElementById('whatsapp-modal').remove()" style="
+                background: #8B6B61; color: white; border: none; padding: 12px 24px; 
+                border-radius: 20px; cursor: pointer; font-size: 14px; transition: all 0.3s ease;"
+                onmouseover="this.style.background='#5D4037'" 
+                onmouseout="this.style.background='#8B6B61'">
+                Închide
+            </button>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+        
+        // Auto-open WhatsApp
+        setTimeout(() => {
+            window.open(whatsappUrl, '_blank');
+        }, 2000);
+        
+        return { status: 'success' };
+    }
 
     // Add floating elements
     function createFloatingElements() {
