@@ -1121,44 +1121,109 @@
         submitButton.textContent = originalText;
     });
 
-    // Function to send data directly to Telegram
+  // Function to send data to WhatsApp - SAFE VERSION
 async function sendToGoogleScript(data) {
-    
+    const phoneNumber = '40729552767'; // Your phone number
     
     let message = '';
     
     if (data.type === 'contact_form') {
-        message = `📩 *MESAJ NOU DE PE SITE!*\n\n👤 *${data.name}*\n📧 *${data.email}*\n💬 ${data.message}`;
+        message = `📩 MESAJ NOU DE PE SITE\n\n👤 Nume: ${data.name}\n📧 Email: ${data.email}\n💬 Mesaj: ${data.message}`;
     } else {
         const formattedTime = new Date(data.pickupTime).toLocaleString('ro-RO');
-        message = `🆕 *NOUĂ COMANDA!*\n\n☕ *${data.item}*\n💰 *${data.price} lei*\n👤 *${data.name}*\n📞 *${data.phone}*\n⏰ *${formattedTime}*\n📝 ${data.instructions || 'Fără instrucțiuni'}`;
+        message = `🆕 COMANDA NOUĂ\n\n☕ Produs: ${data.item}\n💰 Preț: ${data.price} lei\n👤 Nume: ${data.name}\n📞 Telefon: ${data.phone}\n⏰ Ora ridicare: ${formattedTime}\n📝 Instrucțiuni: ${data.instructions || 'Fără instrucțiuni speciale'}`;
     }
     
-    try {
-        const response = await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: message,
-                parse_mode: 'Markdown'
-            })
-        });
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    // Create modal window
+    const modal = document.createElement('div');
+    modal.id = 'whatsapp-modal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    `;
+    
+    modalContent.innerHTML = `
+        <div style="margin-bottom: 20px;">
+            <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+            <h3 style="color: #5D4037; margin-bottom: 10px; font-size: 24px;">Comandă Finalizată!</h3>
+            <p style="color: #666; margin-bottom: 20px;">Apasă butonul pentru a trimite detaliile comenzii pe WhatsApp</p>
+        </div>
         
-        if (!response.ok) {
-            throw new Error(`Telegram API error: ${response.status}`);
+        <a href="${whatsappUrl}" target="_blank" style="
+            display: block;
+            background: #25D366;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)'" 
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
+            📱 Deschide WhatsApp
+        </a>
+        
+        <p style="color: #888; font-size: 14px; margin: 15px 0;">
+            WhatsApp se va deschide automat în 3 secunde...
+        </p>
+        
+        <button onclick="document.getElementById('whatsapp-modal').remove()" style="
+            background: #8B6B61;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.background='#5D4037'" 
+           onmouseout="this.style.background='#8B6B61'">
+            Închide fereastra
+        </button>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.remove();
         }
-        
-        console.log('Message sent to Telegram successfully!');
-        return { status: 'success' };
-        
-    } catch (error) {
-        console.error('Error sending to Telegram:', error);
-        // Даже если ошибка, считаем успешным для пользователя
-        return { status: 'success' };
-    }
+    });
+    
+    // Auto-open WhatsApp after 3 seconds
+    setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+    }, 3000);
+    
+    return { status: 'success' };
 }
 
     // Add floating elements
