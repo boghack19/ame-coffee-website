@@ -819,7 +819,7 @@
         </div>
     </section>
 
-    <!-- Order Modal -->
+        <!-- Order Modal -->
     <div class="modal" id="orderModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -845,16 +845,17 @@
                 
                 <div class="form-group">
                     <label for="specialInstructions">Instrucțiuni speciale</label>
-                    <textarea id="specialInstructions" name="instructions" class="form-control"></textarea>
+                    <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, etc."></textarea>
                 </div>
                 
-                <div class="payment-section">
-                    <h3>Plata Online</h3>
-                    <div class="card-element" id="card-element"></div>
-                    <div id="card-errors" role="alert"></div>
+                <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h4>Sumar comandă</h4>
+                    <p><strong>Produs:</strong> <span id="summaryItem"></span></p>
+                    <p><strong>Preț:</strong> <span id="summaryPrice"></span> lei</p>
+                    <p style="color: var(--accent); font-weight: bold;">Plata se face la ridicarea comenzii</p>
                 </div>
                 
-                <button type="submit" class="btn" id="submit-order">Plătește <span id="totalAmount"></span> lei</button>
+                <button type="submit" class="btn" id="submit-order">Confirmă Comanda</button>
             </form>
         </div>
     </div>
@@ -1103,7 +1104,7 @@
                 instructions: document.getElementById('specialInstructions').value
             };
             
-            await fetch('https://script.google.com/macros/s/AKfycbx7h7LJmY2s9fyGG_CM8dgGErRuQXxVGPgVWAd49OlOFA2ZlOfPpyxod6Zjm8ocIzt5wQ/exec', {
+            await fetch('https://script.google.com/macros/s/AKfycbz1FlBtA8Y5KglnHIOp02FCzHdQ-zds69VYBQ5-8lpcGCRIw56xJ-M_DvaYgZbHVpDY2A/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
