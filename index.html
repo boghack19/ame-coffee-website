@@ -909,10 +909,7 @@
                 </div>
                 <div class="contact-form">
                     <h3>Trimite-ne un mesaj</h3>
-                    <form id="contactForm" action="https://formsubmit.co/boghack18@gmail.com" method="POST">
-                        <input type="hidden" name="_subject" value="✉️ New Message from Ame Coffee">
-                        <input type="hidden" name="_template" value="table">
-                        
+                    <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Nume</label>
                             <input type="text" id="name" name="name" class="form-control" required>
@@ -963,7 +960,7 @@
 
     <script>
         // Initialize Stripe
-        const stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your Stripe key
+        const stripe = Stripe('pk_test_your_publishable_key_here');
         const elements = stripe.elements();
         const cardElement = elements.create('card');
         
@@ -987,7 +984,6 @@
                         behavior: 'smooth'
                     });
                     
-                    // Close mobile menu if open
                     document.querySelector('.nav-links').classList.remove('active');
                 }
             });
@@ -1041,8 +1037,6 @@
                 document.getElementById('totalAmount').textContent = price;
                 
                 orderModal.style.display = 'block';
-                
-                // Mount Stripe card element
                 cardElement.mount('#card-element');
             });
         });
@@ -1057,7 +1051,7 @@
             }
         });
 
-        // Handle form submissions
+        // Handle order form submissions
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1066,34 +1060,12 @@
             submitButton.textContent = 'Se procesează...';
             
             try {
-                // Create payment intent on your server
-                const { clientSecret } = await createPaymentIntent({
-                    amount: document.getElementById('selectedPrice').value * 100, // Convert to cents
-                    currency: 'ron'
-                });
-                
-                // Confirm payment with Stripe
-                const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-                    payment_method: {
-                        card: cardElement,
-                        billing_details: {
-                            name: document.getElementById('customerName').value,
-                            phone: document.getElementById('customerPhone').value,
-                        },
-                    }
-                });
-                
-                if (error) {
-                    document.getElementById('card-errors').textContent = error.message;
-                    submitButton.disabled = false;
-                    submitButton.textContent = `Plătește ${document.getElementById('selectedPrice').value} lei`;
-                } else {
-                    // Payment successful - send to Google Calendar and save order
-                    await saveOrderToGoogleCalendar();
-                    alert('Comanda a fost plasată cu succes! Veți primi un email de confirmare.');
-                    orderModal.style.display = 'none';
-                    this.reset();
-                }
+                // Payment processing would go here
+                // For now, just save the order
+                await saveOrderToGoogleCalendar();
+                alert('Comanda a fost plasată cu succes! Veți primi un email de confirmare.');
+                orderModal.style.display = 'none';
+                this.reset();
             } catch (error) {
                 console.error('Error:', error);
                 alert('A apărut o eroare. Vă rugăm încercați din nou.');
@@ -1120,19 +1092,6 @@
         const minDate = now.toISOString().slice(0, 16);
         document.getElementById('pickupTime').min = minDate;
 
-        // Function to create payment intent (you need to implement this on your server)
-        async function createPaymentIntent(paymentData) {
-            // This should call your backend server
-            const response = await fetch('/create-payment-intent', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(paymentData),
-            });
-            return await response.json();
-        }
-
         // Function to save order to Google Calendar
         async function saveOrderToGoogleCalendar() {
             const orderData = {
@@ -1144,8 +1103,7 @@
                 instructions: document.getElementById('specialInstructions').value
             };
             
-            // This should call your backend server or Google Apps Script
-            await fetch('/save-to-calendar', {
+            await fetch('https://script.google.com/macros/s/AKfycbx7h7LJmY2s9fyGG_CM8dgGErRuQXxVGPgVWAd49OlOFA2ZlOfPpyxod6Zjm8ocIzt5wQ/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
