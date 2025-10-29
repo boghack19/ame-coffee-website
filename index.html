@@ -133,6 +133,7 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links li {
@@ -165,6 +166,38 @@
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        .cart-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cart-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         .mobile-menu {
@@ -348,10 +381,45 @@
             to { width: 80px; }
         }
 
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .category-btn {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+        }
+
+        .menu-category {
+            display: none;
+        }
+
+        .menu-category.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
 
         .menu-item {
@@ -420,11 +488,121 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 10px;
+            width: 100%;
         }
 
         .order-btn:hover {
             background: var(--accent);
             transform: scale(1.05);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-cart:hover {
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background: var(--secondary);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            background: var(--light);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent);
         }
 
         /* Order Modal */
@@ -642,29 +820,6 @@
             50% { transform: translateY(-20px) rotate(180deg); }
         }
 
-        /* Payment Section */
-        .payment-section {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-        }
-
-        .card-element {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: white;
-            margin-bottom: 15px;
-        }
-
-        #card-errors {
-            color: #e74c3c;
-            margin: 10px 0;
-            font-size: 14px;
-        }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .about-content, .contact-container {
@@ -673,6 +828,10 @@
             
             .hero h1 {
                 font-size: 36px;
+            }
+            
+            .cart-sidebar {
+                width: 320px;
             }
         }
 
@@ -726,6 +885,11 @@
                 margin-right: 0;
                 margin-bottom: 30px;
             }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
         }
     </style>
 </head>
@@ -735,6 +899,24 @@
         <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
         <div class="floating-element" style="width: 150px; height: 150px; top: 60%; right: 10%; animation-delay: 2s;"></div>
         <div class="floating-element" style="width: 80px; height: 80px; bottom: 20%; left: 20%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Coșul tău</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 lei</span>
+            </div>
+            <button class="btn" id="checkoutBtn" style="width: 100%;">Finalizează Comanda</button>
+        </div>
     </div>
 
     <!-- Header -->
@@ -750,6 +932,13 @@
                     <li><a href="#about">Despre Noi</a></li>
                     <li><a href="#menu">Meniu & Comandă</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <button class="cart-btn" id="cartButton">
+                            <i class="fas fa-shopping-cart"></i>
+                            Coș
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
+                    </li>
                 </ul>
                 <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -764,7 +953,7 @@
             <div class="hero-content">
                 <h1>Cea mai bună cafea din București</h1>
                 <p>Bucură-te de arome autentice și de o atmosferă relaxantă în inima orașului. Comandă online și ridică rapid!</p>
-                <a href="#menu" class="btn">Comandă Acum</a>
+                <a href="#menu" class="btn">Vezi Meniul</a>
             </div>
         </div>
     </section>
@@ -787,66 +976,186 @@
         </div>
     </section>
 
-     <!-- Menu Section -->
+    <!-- Menu Section -->
     <section class="menu" id="menu">
         <div class="container">
             <div class="section-title">
                 <h2>Meniul Nostru</h2>
                 <p>Descoperă aromele noastre speciale și comandă online</p>
             </div>
-            <div class="menu-grid">
-                <!-- Coffee Items -->
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
-                    <div class="menu-item-content">
-                        <h3>Espresso <span class="price">12 lei</span></h3>
-                        <p>Cafea intensă și aromată, perfectă pentru începutul zilei.</p>
-                        <button class="order-btn" data-item="Espresso" data-price="12">Adaugă în comandă</button>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cappuccino">
-                    <div class="menu-item-content">
-                        <h3>Cappuccino <span class="price">15 lei</span></h3>
-                        <p>Espresso cu spumă de lapte cremoasă și un strat subțire de ciocolată.</p>
-                        <button class="order-btn" data-item="Cappuccino" data-price="15">Adaugă în comandă</button>
-                    </div>
-                </div>
+            
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="bauturi">Băuturi</button>
+                <button class="category-btn" data-category="mancare">Mâncare</button>
+            </div>
 
-                <!-- Food Items -->
-                <div class="menu-item">
-                    <img src="croissant.jpg" alt="Croissant">
-                    <div class="menu-item-content">
-                        <h3>Croissant <span class="price">8 lei</span></h3>
-                        <p>Croissant proaspăt cu unt, crocant și pufos.</p>
-                        <button class="order-btn" data-item="Croissant" data-price="8">Adaugă în comandă</button>
+            <!-- Băuturi Category -->
+            <div class="menu-category active" id="bauturi">
+                <div class="menu-grid">
+                    <!-- Coffee Items -->
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
+                        <div class="menu-item-content">
+                            <h3>Espresso <span class="price">12 lei</span></h3>
+                            <p>Cafea intensă și aromată, perfectă pentru începutul zilei.</p>
+                            <button class="order-btn" data-item="Espresso" data-price="12">Adaugă în comandă</button>
+                        </div>
                     </div>
-                </div>
+                    
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cappuccino">
+                        <div class="menu-item-content">
+                            <h3>Cappuccino <span class="price">15 lei</span></h3>
+                            <p>Espresso cu spumă de lapte cremoasă și un strat subțire de ciocolată.</p>
+                            <button class="order-btn" data-item="Cappuccino" data-price="15">Adaugă în comandă</button>
+                        </div>
+                    </div>
 
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Sandviș">
-                    <div class="menu-item-content">
-                        <h3>Sandviș Proaspăt <span class="price">18 lei</span></h3>
-                        <p>Sandviș cu șuncă, cașcaval, salată și roșii proaspete.</p>
-                        <button class="order-btn" data-item="Sandviș Proaspăt" data-price="18">Adaugă în comandă</button>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Latte">
+                        <div class="menu-item-content">
+                            <h3>Latte <span class="price">16 lei</span></h3>
+                            <p>Espresso cu lapte aburit și o cantitate generoasă de spumă.</p>
+                            <button class="order-btn" data-item="Latte" data-price="16">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1567696911981-8b2e4b65676c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Americano">
+                        <div class="menu-item-content">
+                            <h3>Americano <span class="price">13 lei</span></h3>
+                            <p>Espresso diluat cu apă fierbinte pentru o cafea mai lungă.</p>
+                            <button class="order-btn" data-item="Americano" data-price="13">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Mocha">
+                        <div class="menu-item-content">
+                            <h3>Mocha <span class="price">18 lei</span></h3>
+                            <p>Espresso cu ciocolată, lapte și frișcă.</p>
+                            <button class="order-btn" data-item="Mocha" data-price="18">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1564890369478-c89ca2d9c7bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Flat White">
+                        <div class="menu-item-content">
+                            <h3>Flat White <span class="price">17 lei</span></h3>
+                            <p>Dublu espresso cu lapte micro-spumat pentru o textură cremoasă.</p>
+                            <button class="order-btn" data-item="Flat White" data-price="17">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1599599810691-001afe0ef8b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Macchiato">
+                        <div class="menu-item-content">
+                            <h3>Macchiato <span class="price">14 lei</span></h3>
+                            <p>Espresso "pătat" cu o linguriță de spumă de lapte.</p>
+                            <button class="order-btn" data-item="Macchiato" data-price="14">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Irish Coffee">
+                        <div class="menu-item-content">
+                            <h3>Irish Coffee <span class="price">22 lei</span></h3>
+                            <p>Cafea cu whiskey irlandez, zahăr brun și frișcă.</p>
+                            <button class="order-btn" data-item="Irish Coffee" data-price="22">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cold Brew">
+                        <div class="menu-item-content">
+                            <h3>Cold Brew <span class="price">16 lei</span></h3>
+                            <p>Cafea infuzată la rece timp de 12 ore pentru o aromă lină.</p>
+                            <button class="order-btn" data-item="Cold Brew" data-price="16">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1560705122-1a63b4b6d9bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Matcha Latte">
+                        <div class="menu-item-content">
+                            <h3>Matcha Latte <span class="price">19 lei</span></h3>
+                            <p>Ceai verde matcha cu lapte aburit și miere.</p>
+                            <button class="order-btn" data-item="Matcha Latte" data-price="19">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Chai Latte">
+                        <div class="menu-item-content">
+                            <h3>Chai Latte <span class="price">18 lei</span></h3>
+                            <p>Ceai indian picant cu lapte și mirodenii aromate.</p>
+                            <button class="order-btn" data-item="Chai Latte" data-price="18">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Smoothie de Fructe">
+                        <div class="menu-item-content">
+                            <h3>Smoothie de Fructe <span class="price">20 lei</span></h3>
+                            <p>Amestec proaspăt de fructe de pădure, banane și iaurt.</p>
+                            <button class="order-btn" data-item="Smoothie de Fructe" data-price="20">Adaugă în comandă</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Cart Summary -->
-            <div id="cart-summary" style="display: none; margin-top: 40px; padding: 20px; background: var(--white); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <h3 style="text-align: center; margin-bottom: 20px;">Coșul tău</h3>
-                <div id="cart-items"></div>
-                <div style="text-align: center; margin-top: 20px;">
-                    <button id="finalize-order" class="btn" style="margin-right: 10px;">Finalizează Comanda</button>
-                    <button id="clear-cart" class="btn" style="background: var(--secondary); color: var(--text);">Golește Coșul</button>
+
+            <!-- Mâncare Category -->
+            <div class="menu-category" id="mancare">
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Croissant">
+                        <div class="menu-item-content">
+                            <h3>Croissant <span class="price">8 lei</span></h3>
+                            <p>Croissant proaspăt cu unt, crocant și pufos.</p>
+                            <button class="order-btn" data-item="Croissant" data-price="8">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Sandviș Proaspăt">
+                        <div class="menu-item-content">
+                            <h3>Sandviș Proaspăt <span class="price">18 lei</span></h3>
+                            <p>Sandviș cu șuncă, cașcaval, salată și roșii proaspete.</p>
+                            <button class="order-btn" data-item="Sandviș Proaspăt" data-price="18">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Quiche Lorraine">
+                        <div class="menu-item-content">
+                            <h3>Quiche Lorraine <span class="price">22 lei</span></h3>
+                            <p>Plăcintă sărată cu șuncă, brânză și smântână.</p>
+                            <button class="order-btn" data-item="Quiche Lorraine" data-price="22">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Salată Caesar">
+                        <div class="menu-item-content">
+                            <h3>Salată Caesar <span class="price">25 lei</span></h3>
+                            <p>Salată cu piept de pui, crutoane, parmezan și sos Caesar.</p>
+                            <button class="order-btn" data-item="Salată Caesar" data-price="25">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Bowl de Açai">
+                        <div class="menu-item-content">
+                            <h3>Bowl de Açai <span class="price">28 lei</span></h3>
+                            <p>Açai cu fructe proaspete, granola și miere.</p>
+                            <button class="order-btn" data-item="Bowl de Açai" data-price="28">Adaugă în comandă</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-        <!-- Order Modal -->
+    <!-- Order Modal -->
     <div class="modal" id="orderModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -881,7 +1190,7 @@
                     <p style="color: var(--accent); font-weight: bold; margin-top: 15px;">Plata se face la ridicarea comenzii</p>
                 </div>
                 
-                <button type="submit" class="btn" id="submit-order">Confirmă Comanda</button>
+                <button type="submit" class="btn" id="submit-order">Trimite Comanda pe WhatsApp</button>
             </form>
         </div>
     </div>
@@ -986,111 +1295,22 @@
     </footer>
 
     <script>
-    // Mobile Menu Toggle
-    document.querySelector('.mobile-menu').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('active');
-    });
-
-    // Smooth Scrolling with animation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if(targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if(targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                document.querySelector('.nav-links').classList.remove('active');
-            }
-        });
-    });
-
-    // Scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        const scrolled = window.scrollY > 100;
-        
-        header.classList.toggle('scrolled', scrolled);
-        
-        if(window.scrollY > 100) {
-            header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        }
-    });
-
-    // Order modal functionality
-    const orderModal = document.getElementById('orderModal');
-    const closeModal = document.querySelector('.close-modal');
-
-    closeModal.addEventListener('click', function() {
-        orderModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(e) {
-        if (e.target === orderModal) {
-            orderModal.style.display = 'none';
-        }
-    });
-
-    // Contact Form Submission
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitButton = this.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        
-        submitButton.disabled = true;
-        submitButton.textContent = 'Se trimite...';
-        
-        try {
-            const contactData = {
-                type: 'contact_form',
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            };
-            
-            await sendToGoogleScript(contactData);
-            
-            alert(`Mulțumim, ${contactData.name}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
-            this.reset();
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Mesajul a fost primit! Vă vom contacta în curând.');
-            this.reset();
-        }
-        
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
-    });
-
-    // ========== SHOPPING CART FUNCTIONALITY ==========
+    // ========== CART FUNCTIONALITY ==========
     let cart = [];
+
+    // Initialize cart from localStorage
+    function initCart() {
+        const savedCart = localStorage.getItem('ameCoffeeCart');
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            updateCartDisplay();
+        }
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+        localStorage.setItem('ameCoffeeCart', JSON.stringify(cart));
+    }
 
     // Add to cart function
     function addToCart(item, price) {
@@ -1107,93 +1327,173 @@
         }
         
         updateCartDisplay();
-        showCart();
-    }
-
-    // Update cart display
-    function updateCartDisplay() {
-        const cartItems = document.getElementById('cart-items');
-        const cartSummary = document.getElementById('cart-summary');
-        
-        if (cart.length === 0) {
-            cartSummary.style.display = 'none';
-            return;
-        }
-        
-        cartSummary.style.display = 'block';
-        
-        let html = '';
-        let total = 0;
-        
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            
-            html += `
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
-                    <div>
-                        <strong>${item.name}</strong>
-                        <br>
-                        <small>${item.price} lei × ${item.quantity}</small>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-weight: bold;">${itemTotal} lei</span>
-                        <button onclick="removeFromCart(${index})" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">Șterge</button>
-                    </div>
-                </div>
-            `;
-        });
-        
-        html += `<div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary);">
-                    <strong>Total:</strong>
-                    <strong>${total} lei</strong>
-                 </div>`;
-        
-        cartItems.innerHTML = html;
+        saveCart();
+        showCartNotification(item);
     }
 
     // Remove from cart
     function removeFromCart(index) {
         cart.splice(index, 1);
         updateCartDisplay();
+        saveCart();
     }
 
-    // Show cart
-    function showCart() {
-        const cartSummary = document.getElementById('cart-summary');
-        if (cart.length > 0) {
-            cartSummary.scrollIntoView({ behavior: 'smooth' });
+    // Update quantity
+    function updateQuantity(index, change) {
+        cart[index].quantity += change;
+        
+        if (cart[index].quantity <= 0) {
+            removeFromCart(index);
+        } else {
+            updateCartDisplay();
+            saveCart();
         }
     }
 
-    // Update order buttons to add to cart
-    document.querySelectorAll('.order-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const item = this.getAttribute('data-item');
-            const price = this.getAttribute('data-price');
-            addToCart(item, price);
-            
-            // Show confirmation
-            const originalText = this.textContent;
-            this.textContent = '✓ Adăugat!';
-            this.style.background = 'var(--accent)';
-            
-            setTimeout(() => {
-                this.textContent = originalText;
-                this.style.background = 'var(--primary)';
-            }, 2000);
-        });
-    });
-
-    // Finalize order button
-    document.getElementById('finalize-order').addEventListener('click', function() {
+    // Update cart display
+    function updateCartDisplay() {
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        
+        // Update cart items
+        let html = '';
+        let total = 0;
+        
         if (cart.length === 0) {
-            alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
-            return;
+            html = '<p style="text-align: center; color: #666; padding: 20px;">Coșul tău este gol</p>';
+        } else {
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} lei</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                            <span style="margin: 0 10px; font-weight: 600;">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            });
         }
         
-        // Prepare order data
+        cartItems.innerHTML = html;
+        cartTotal.textContent = total + ' lei';
+    }
+
+    // Show cart notification
+    function showCartNotification(item) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            max-width: 300px;
+        `;
+        
+        notification.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-check" style="color: #4CAF50;"></i>
+                <div>
+                    <strong>${item}</strong> a fost adăugat în coș!
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // ========== MENU CATEGORIES ==========
+    function initMenuCategories() {
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const categories = document.querySelectorAll('.menu-category');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected category
+                categories.forEach(cat => {
+                    cat.classList.remove('active');
+                    if (cat.id === category) {
+                        cat.classList.add('active');
+                    }
+                });
+            });
+        });
+    }
+
+    // ========== CART SIDEBAR ==========
+    function initCartSidebar() {
+        const cartButton = document.getElementById('cartButton');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.querySelector('.close-cart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        
+        cartButton.addEventListener('click', function() {
+            cartSidebar.classList.add('active');
+        });
+        
+        closeCart.addEventListener('click', function() {
+            cartSidebar.classList.remove('active');
+        });
+        
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
+                return;
+            }
+            
+            cartSidebar.classList.remove('active');
+            showOrderModal();
+        });
+        
+        // Close cart when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
+                cartSidebar.classList.remove('active');
+            }
+        });
+    }
+
+    // ========== ORDER MODAL ==========
+    function showOrderModal() {
+        const orderModal = document.getElementById('orderModal');
         const orderSummary = document.getElementById('order-summary');
+        
+        // Prepare order summary
         let summaryHtml = '';
         let total = 0;
         
@@ -1215,64 +1515,176 @@
         now.setMinutes(now.getMinutes() + 30);
         const minDate = now.toISOString().slice(0, 16);
         document.getElementById('pickupTime').min = minDate;
-        document.getElementById('pickupTime').value = minDate;
+        
+        // Set default pickup time to next hour
+        now.setHours(now.getHours() + 1);
+        now.setMinutes(0);
+        document.getElementById('pickupTime').value = now.toISOString().slice(0, 16);
         
         // Show modal
-        document.getElementById('orderModal').style.display = 'block';
-    });
+        orderModal.style.display = 'block';
+    }
 
-    // Clear cart button
-    document.getElementById('clear-cart').addEventListener('click', function() {
-        if (confirm('Sigur doriți să goliți coșul?')) {
-            cart = [];
-            updateCartDisplay();
-        }
-    });
+    // ========== EVENT LISTENERS ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize cart
+        initCart();
+        initMenuCategories();
+        initCartSidebar();
+        
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
 
-    // Update order form submission to handle cart
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitButton = document.getElementById('submit-order');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Se procesează...';
-        
-        try {
-            // Collect order data with cart items
-            const orderData = {
-                items: document.getElementById('selectedItems').value,
-                totalPrice: document.getElementById('totalPrice').value,
-                name: document.getElementById('customerName').value,
-                phone: document.getElementById('customerPhone').value,
-                pickupTime: document.getElementById('pickupTime').value,
-                instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
-            };
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.scrollY > 100;
             
-            // Send order to WhatsApp
-            await sendToGoogleScript(orderData);
+            header.classList.toggle('scrolled', scrolled);
             
-            alert('Comanda a fost plasată cu succes! Veți primi o confirmare în curând.');
+            if(window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Order buttons
+        document.querySelectorAll('.order-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const item = this.getAttribute('data-item');
+                const price = this.getAttribute('data-price');
+                addToCart(item, price);
+            });
+        });
+
+        // Order modal functionality
+        const orderModal = document.getElementById('orderModal');
+        const closeModal = document.querySelector('.close-modal');
+
+        closeModal.addEventListener('click', function() {
             orderModal.style.display = 'none';
-            this.reset();
-            
-            // Clear cart after successful order
-            cart = [];
-            updateCartDisplay();
-            
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Comanda a fost primită! Vă vom contacta în curând pentru confirmare.');
-            orderModal.style.display = 'none';
-            this.reset();
-        }
-        
-        submitButton.disabled = false;
-        submitButton.textContent = 'Confirmă Comanda';
-    });
-    // ========== END SHOPPING CART ==========
+        });
 
-    // Function to send data to WhatsApp - UPDATED FOR CART
-    async function sendToGoogleScript(data) {
+        window.addEventListener('click', function(e) {
+            if (e.target === orderModal) {
+                orderModal.style.display = 'none';
+            }
+        });
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            submitButton.disabled = true;
+            submitButton.textContent = 'Se trimite...';
+            
+            try {
+                const contactData = {
+                    type: 'contact_form',
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+                
+                await sendToWhatsApp(contactData);
+                
+                alert(`Mulțumim, ${contactData.name}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
+                this.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Mesajul a fost primit! Vă vom contacta în curând.');
+                this.reset();
+            }
+            
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        });
+
+        // Order form submission
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('submit-order');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Se trimite...';
+            
+            try {
+                const orderData = {
+                    items: document.getElementById('selectedItems').value,
+                    totalPrice: document.getElementById('totalPrice').value,
+                    name: document.getElementById('customerName').value,
+                    phone: document.getElementById('customerPhone').value,
+                    pickupTime: document.getElementById('pickupTime').value,
+                    instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
+                };
+                
+                await sendToWhatsApp(orderData);
+                
+                // Clear cart and close modal
+                cart = [];
+                updateCartDisplay();
+                saveCart();
+                orderModal.style.display = 'none';
+                this.reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Comanda a fost primită! Vă vom contacta în curând pentru confirmare.');
+                orderModal.style.display = 'none';
+                this.reset();
+            }
+            
+            submitButton.disabled = false;
+            submitButton.textContent = 'Trimite Comanda pe WhatsApp';
+        });
+    });
+
+    // ========== WHATSAPP FUNCTIONALITY ==========
+    async function sendToWhatsApp(data) {
         const phoneNumber = '40729552767';
         
         let message = '';
@@ -1375,6 +1787,20 @@
     }
 
     createFloatingElements();
-</script>
+
+    // Add CSS for notifications
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+    </script>
 </body>
 </html>
