@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -6,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ame Coffee Shop - Cea mai bună cafea din București</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://js.stripe.com/v3/"></script>
     <style>
         /* Base Styles */
         :root {
@@ -823,107 +821,106 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-    .about-content, .contact-container {
-        flex-direction: column;
-    }
-    
-    .hero h1 {
-        font-size: 36px;
-    }
-    
-    .cart-sidebar {
-        width: 320px;
-    }
-}
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .cart-sidebar {
+                width: 320px;
+            }
+        }
 
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: var(--white);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-        animation: slideDown 0.3s ease;
-    }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                animation: slideDown 0.3s ease;
+            }
 
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
 
-    .nav-links.active {
-        display: flex;
-    }
+            .nav-links.active {
+                display: flex;
+            }
 
-    .nav-links li {
-        margin: 10px 0;
-        animation: fadeInLeft 0.5s ease both;
-    }
+            .nav-links li {
+                margin: 10px 0;
+                animation: fadeInLeft 0.5s ease both;
+            }
 
-    @keyframes fadeInLeft {
-        from { opacity: 0; transform: translateX(-20px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
+            @keyframes fadeInLeft {
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
 
-    .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-    .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-    .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-    .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+            .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+            .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+            .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+            .nav-links li:nth-child(4) { animation-delay: 0.4s; }
 
-    .mobile-menu {
-        display: block;
-    }
+            .mobile-menu {
+                display: block;
+            }
 
-    .footer-content {
-        flex-direction: column;
-    }
+            .footer-content {
+                flex-direction: column;
+            }
 
-    .footer-column {
-        margin-right: 0;
-        margin-bottom: 30px;
-    }
-    
-    .cart-sidebar {
-        width: 100%;
-        right: -100%;
-    }
-    
-    .menu-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px;
-    }
-    
-    .menu-item {
-        margin-bottom: 0;
-    }
-    
-    .menu-item img {
-        height: 150px;
-    }
-    
-    .menu-item-content {
-        padding: 15px;
-    }
-    
-    .menu-item h3 {
-        font-size: 16px;
-    }
-    
-    .menu-item p {
-        font-size: 14px;
-        line-height: 1.4;
-    }
-    
-    .order-btn {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
-}
-
+            .footer-column {
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px;
+            }
+            
+            .menu-item {
+                margin-bottom: 0;
+            }
+            
+            .menu-item img {
+                height: 150px;
+            }
+            
+            .menu-item-content {
+                padding: 15px;
+            }
+            
+            .menu-item h3 {
+                font-size: 16px;
+            }
+            
+            .menu-item p {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            
+            .order-btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -935,25 +932,25 @@
     </div>
 
     <!-- Cart Sidebar -->
-<div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-        <h3>Coșul tău</h3>
-        <button class="close-cart">&times;</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-        <!-- Cart items will be added here dynamically -->
-    </div>
-    <div class="cart-footer">
-        <div class="cart-total">
-            <span>Total:</span>
-            <span id="cartTotal">0 lei</span>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Coșul tău</h3>
+            <button class="close-cart">&times;</button>
         </div>
-        <button class="btn" id="clearCartBtn" style="width: 100%; background: #dc3545; margin-bottom: 10px;">
-            <i class="fas fa-trash"></i> Șterge tot coșul
-        </button>
-        <button class="btn" id="checkoutBtn" style="width: 100%;">Finalizează Comanda</button>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 lei</span>
+            </div>
+            <button class="btn" id="clearCartBtn" style="width: 100%; background: #dc3545; margin-bottom: 10px;">
+                <i class="fas fa-trash"></i> Șterge tot coșul
+            </button>
+            <button class="btn" id="checkoutBtn" style="width: 100%;">Finalizează Comanda</button>
+        </div>
     </div>
-</div>
 
     <!-- Header -->
     <header>
@@ -1222,8 +1219,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="pickupTime">Programează ridicarea</label>
-                    <input type="datetime-local" id="pickupTime" name="pickup_time" class="form-control" required>
+                    <label for="pickupTime">Ora ridicării</label>
+                    <input type="time" id="pickupTime" name="pickup_time" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
@@ -1360,29 +1357,29 @@
     }
 
     // Add to cart function
-function addToCart(item, price) {
-    const existingItem = cart.find(cartItem => cartItem.name === item);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            name: item,
-            price: parseFloat(price),
-            quantity: 1
-        });
+    function addToCart(item, price) {
+        const existingItem = cart.find(cartItem => cartItem.name === item);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: item,
+                price: parseFloat(price),
+                quantity: 1
+            });
+        }
+        
+        updateCartDisplay();
+        saveCart();
+        showCartNotification(item);
+        
+        // Auto-open cart on mobile devices
+        if (window.innerWidth <= 768) {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.add('active');
+        }
     }
-    
-    updateCartDisplay();
-    saveCart();
-    showCartNotification(item);
-    
-    // Auto-open cart on mobile devices
-    if (window.innerWidth <= 768) {
-        const cartSidebar = document.getElementById('cartSidebar');
-        cartSidebar.classList.add('active');
-    }
-}
 
     // Remove from cart
     function removeFromCart(index) {
@@ -1391,19 +1388,19 @@ function addToCart(item, price) {
         saveCart();
     }
 
-    // Clear entire cart - ДОБАВЬ ЗДЕСЬ
-function clearCart() {
-    if (cart.length === 0) {
-        alert('Coșul tău este deja gol!');
-        return;
+    // Clear entire cart
+    function clearCart() {
+        if (cart.length === 0) {
+            alert('Coșul tău este deja gol!');
+            return;
+        }
+        
+        if (confirm('Sigur dorești să ștergi toate produsele din coș?')) {
+            cart = [];
+            updateCartDisplay();
+            saveCart();
+        }
     }
-    
-    if (confirm('Sigur dorești să ștergi toate produsele din coș?')) {
-        cart = [];
-        updateCartDisplay();
-        saveCart();
-    }
-}
 
     // Update quantity
     function updateQuantity(index, change) {
@@ -1418,54 +1415,51 @@ function clearCart() {
     }
 
     // Update cart display
-function updateCartDisplay() {
-    const cartItems = document.getElementById('cartItems');
-    const cartCount = document.getElementById('cartCount');
-    const cartTotal = document.getElementById('cartTotal');
-    const clearCartBtn = document.getElementById('clearCartBtn'); // ДОБАВЬ ЭТУ СТРОКУ
-    
-    // Update cart count
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
-    
-    // Update cart items
-    let html = '';
-    let total = 0;
-    
-    if (cart.length === 0) {
-        html = '<p style="text-align: center; color: #666; padding: 20px;">Coșul tău este gol</p>';
-        // ДОБАВЬ ЭТУ СТРОКУ - скрываем кнопку когда корзина пуста
-        clearCartBtn.style.display = 'none';
-    } else {
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            
-            html += `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${item.price} lei</div>
+    function updateCartDisplay() {
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        
+        // Update cart items
+        let html = '';
+        let total = 0;
+        
+        if (cart.length === 0) {
+            html = '<p style="text-align: center; color: #666; padding: 20px;">Coșul tău este gol</p>';
+            clearCartBtn.style.display = 'none';
+        } else {
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} lei</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                            <span style="margin: 0 10px; font-weight: 600;">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
                     </div>
-                    <div class="cart-item-controls">
-                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                        <span style="margin: 0 10px; font-weight: 600;">${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                    </div>
-                </div>
-            `;
-        });
-        // ДОБАВЬ ЭТУ СТРОКУ - показываем кнопку когда есть товары
-        clearCartBtn.style.display = 'block';
+                `;
+            });
+            clearCartBtn.style.display = 'block';
+        }
+        
+        cartItems.innerHTML = html;
+        cartTotal.textContent = total + ' lei';
     }
-    
-    cartItems.innerHTML = html;
-    cartTotal.textContent = total + ' lei';
-}
 
     // Show cart notification
     function showCartNotification(item) {
-        // Create notification element
         const notification = document.createElement('div');
         notification.style.cssText = `
             position: fixed;
@@ -1492,7 +1486,6 @@ function updateCartDisplay() {
         
         document.body.appendChild(notification);
         
-        // Remove notification after 3 seconds
         setTimeout(() => {
             notification.style.animation = 'slideOutRight 0.3s ease';
             setTimeout(() => {
@@ -1512,11 +1505,9 @@ function updateCartDisplay() {
             btn.addEventListener('click', function() {
                 const category = this.getAttribute('data-category');
                 
-                // Update active button
                 categoryBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Show selected category
                 categories.forEach(cat => {
                     cat.classList.remove('active');
                     if (cat.id === category) {
@@ -1528,50 +1519,47 @@ function updateCartDisplay() {
     }
 
     // ========== CART SIDEBAR ==========
-function initCartSidebar() {
-    const cartButton = document.getElementById('cartButton');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const closeCart = document.querySelector('.close-cart');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    const clearCartBtn = document.getElementById('clearCartBtn'); // ДОБАВЬ ЭТУ СТРОКУ
-    
-    cartButton.addEventListener('click', function() {
-        cartSidebar.classList.add('active');
-    });
-    
-    closeCart.addEventListener('click', function() {
-        cartSidebar.classList.remove('active');
-    });
-    
-    // ДОБАВЬ ЭТОТ БЛОК
-    clearCartBtn.addEventListener('click', function() {
-        clearCart();
-    });
-    
-    checkoutBtn.addEventListener('click', function() {
-        if (cart.length === 0) {
-            alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
-            return;
-        }
+    function initCartSidebar() {
+        const cartButton = document.getElementById('cartButton');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.querySelector('.close-cart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const clearCartBtn = document.getElementById('clearCartBtn');
         
-        cartSidebar.classList.remove('active');
-        showOrderModal();
-    });
-    
-    // Close cart when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
+        cartButton.addEventListener('click', function() {
+            cartSidebar.classList.add('active');
+        });
+        
+        closeCart.addEventListener('click', function() {
             cartSidebar.classList.remove('active');
-        }
-    });
-}
+        });
+        
+        clearCartBtn.addEventListener('click', function() {
+            clearCart();
+        });
+        
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
+                return;
+            }
+            
+            cartSidebar.classList.remove('active');
+            showOrderModal();
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
+                cartSidebar.classList.remove('active');
+            }
+        });
+    }
 
     // ========== ORDER MODAL ==========
     function showOrderModal() {
         const orderModal = document.getElementById('orderModal');
         const orderSummary = document.getElementById('order-summary');
         
-        // Prepare order summary
         let summaryHtml = '';
         let total = 0;
         
@@ -1584,38 +1572,29 @@ function initCartSidebar() {
         summaryHtml += `<p style="font-weight: bold; margin-top: 10px; color: var(--accent);">Total: ${total} lei</p>`;
         orderSummary.innerHTML = summaryHtml;
         
-        // Set hidden fields
         document.getElementById('selectedItems').value = JSON.stringify(cart);
         document.getElementById('totalPrice').value = total;
         
-        // Set minimum pickup time
+        // Set default time to next hour
         const now = new Date();
-        now.setMinutes(now.getMinutes() + 30);
-        const minDate = now.toISOString().slice(0, 16);
-        document.getElementById('pickupTime').min = minDate;
-        
-        // Set default pickup time to next hour
         now.setHours(now.getHours() + 1);
         now.setMinutes(0);
-        document.getElementById('pickupTime').value = now.toISOString().slice(0, 16);
+        const nextHour = now.getHours().toString().padStart(2, '0') + ':00';
+        document.getElementById('pickupTime').value = nextHour;
         
-        // Show modal
         orderModal.style.display = 'block';
     }
 
     // ========== EVENT LISTENERS ==========
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize cart
         initCart();
         initMenuCategories();
         initCartSidebar();
         
-        // Mobile Menu Toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
         });
 
-        // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1635,7 +1614,6 @@ function initCartSidebar() {
             });
         });
 
-        // Scroll animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1653,7 +1631,6 @@ function initCartSidebar() {
             observer.observe(section);
         });
 
-        // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             const scrolled = window.scrollY > 100;
@@ -1667,7 +1644,6 @@ function initCartSidebar() {
             }
         });
 
-        // Order buttons
         document.querySelectorAll('.order-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const item = this.getAttribute('data-item');
@@ -1676,7 +1652,6 @@ function initCartSidebar() {
             });
         });
 
-        // Order modal functionality
         const orderModal = document.getElementById('orderModal');
         const closeModal = document.querySelector('.close-modal');
 
@@ -1690,7 +1665,6 @@ function initCartSidebar() {
             }
         });
 
-        // Contact Form Submission
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1722,7 +1696,6 @@ function initCartSidebar() {
             submitButton.textContent = originalText;
         });
 
-        // Order form submission
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1731,18 +1704,19 @@ function initCartSidebar() {
             submitButton.textContent = 'Se trimite...';
             
             try {
+                const today = new Date().toLocaleDateString('ro-RO');
                 const orderData = {
                     items: document.getElementById('selectedItems').value,
                     totalPrice: document.getElementById('totalPrice').value,
                     name: document.getElementById('customerName').value,
                     phone: document.getElementById('customerPhone').value,
+                    pickupDate: today,
                     pickupTime: document.getElementById('pickupTime').value,
                     instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
                 };
                 
                 await sendToWhatsApp(orderData);
                 
-                // Clear cart and close modal
                 cart = [];
                 updateCartDisplay();
                 saveCart();
@@ -1770,9 +1744,6 @@ function initCartSidebar() {
         if (data.type === 'contact_form') {
             message = `📩 MESAJ NOU DE PE SITE\n\n👤 Nume: ${data.name}\n📧 Email: ${data.email}\n💬 Mesaj: ${data.message}`;
         } else {
-            const formattedTime = new Date(data.pickupTime).toLocaleString('ro-RO');
-            
-            // Handle cart items
             let itemsText = '';
             let total = 0;
             
@@ -1785,12 +1756,11 @@ function initCartSidebar() {
                 });
             }
             
-            message = `🆕 COMANDA NOUĂ\n\n📦 PRODUSE:\n${itemsText}\n💰 TOTAL: ${total} lei\n👤 Nume: ${data.name}\n📞 Telefon: ${data.phone}\n⏰ Ora ridicare: ${formattedTime}\n📝 Instrucțiuni: ${data.instructions}`;
+            message = `🆕 COMANDA NOUĂ\n\n📦 PRODUSE:\n${itemsText}\n💰 TOTAL: ${total} lei\n👤 Nume: ${data.name}\n📞 Telefon: ${data.phone}\n📅 Data: ${data.pickupDate}\n⏰ Ora ridicare: ${data.pickupTime}\n📝 Instrucțiuni: ${data.instructions}`;
         }
         
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         
-        // Create modal window
         const modal = document.createElement('div');
         modal.id = 'whatsapp-modal';
         modal.style.cssText = `
@@ -1839,7 +1809,6 @@ function initCartSidebar() {
             }
         });
         
-        // Auto-open WhatsApp
         setTimeout(() => {
             window.open(whatsappUrl, '_blank');
         }, 2000);
