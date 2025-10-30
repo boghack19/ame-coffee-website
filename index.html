@@ -1357,23 +1357,29 @@
     }
 
     // Add to cart function
-    function addToCart(item, price) {
-        const existingItem = cart.find(cartItem => cartItem.name === item);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                name: item,
-                price: parseFloat(price),
-                quantity: 1
-            });
-        }
-        
-        updateCartDisplay();
-        saveCart();
-        showCartNotification(item);
+function addToCart(item, price) {
+    const existingItem = cart.find(cartItem => cartItem.name === item);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: item,
+            price: parseFloat(price),
+            quantity: 1
+        });
     }
+    
+    updateCartDisplay();
+    saveCart();
+    showCartNotification(item);
+    
+    // Auto-open cart on mobile devices
+    if (window.innerWidth <= 768) {
+        const cartSidebar = document.getElementById('cartSidebar');
+        cartSidebar.classList.add('active');
+    }
+}
 
     // Remove from cart
     function removeFromCart(index) {
