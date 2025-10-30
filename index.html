@@ -935,22 +935,25 @@
     </div>
 
     <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Coșul tău</h3>
-            <button class="close-cart">&times;</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Cart items will be added here dynamically -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">0 lei</span>
-            </div>
-            <button class="btn" id="checkoutBtn" style="width: 100%;">Finalizează Comanda</button>
-        </div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3>Coșul tău</h3>
+        <button class="close-cart">&times;</button>
     </div>
+    <div class="cart-items" id="cartItems">
+        <!-- Cart items will be added here dynamically -->
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">0 lei</span>
+        </div>
+        <button class="btn" id="clearCartBtn" style="width: 100%; background: #dc3545; margin-bottom: 10px;">
+            <i class="fas fa-trash"></i> Șterge tot coșul
+        </button>
+        <button class="btn" id="checkoutBtn" style="width: 100%;">Finalizează Comanda</button>
+    </div>
+</div>
 
     <!-- Header -->
     <header>
@@ -1388,6 +1391,20 @@ function addToCart(item, price) {
         saveCart();
     }
 
+    // Clear entire cart - ДОБАВЬ ЗДЕСЬ
+function clearCart() {
+    if (cart.length === 0) {
+        alert('Coșul tău este deja gol!');
+        return;
+    }
+    
+    if (confirm('Sigur dorești să ștergi toate produsele din coș?')) {
+        cart = [];
+        updateCartDisplay();
+        saveCart();
+    }
+}
+
     // Update quantity
     function updateQuantity(index, change) {
         cart[index].quantity += change;
@@ -1401,45 +1418,50 @@ function addToCart(item, price) {
     }
 
     // Update cart display
-    function updateCartDisplay() {
-        const cartItems = document.getElementById('cartItems');
-        const cartCount = document.getElementById('cartCount');
-        const cartTotal = document.getElementById('cartTotal');
-        
-        // Update cart count
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCount.textContent = totalItems;
-        
-        // Update cart items
-        let html = '';
-        let total = 0;
-        
-        if (cart.length === 0) {
-            html = '<p style="text-align: center; color: #666; padding: 20px;">Coșul tău este gol</p>';
-        } else {
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                
-                html += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${item.price} lei</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                            <span style="margin: 0 10px; font-weight: 600;">${item.quantity}</span>
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                        </div>
+function updateCartDisplay() {
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const clearCartBtn = document.getElementById('clearCartBtn'); // ДОБАВЬ ЭТУ СТРОКУ
+    
+    // Update cart count
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    
+    // Update cart items
+    let html = '';
+    let total = 0;
+    
+    if (cart.length === 0) {
+        html = '<p style="text-align: center; color: #666; padding: 20px;">Coșul tău este gol</p>';
+        // ДОБАВЬ ЭТУ СТРОКУ - скрываем кнопку когда корзина пуста
+        clearCartBtn.style.display = 'none';
+    } else {
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            html += `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} lei</div>
                     </div>
-                `;
-            });
-        }
-        
-        cartItems.innerHTML = html;
-        cartTotal.textContent = total + ' lei';
+                    <div class="cart-item-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                        <span style="margin: 0 10px; font-weight: 600;">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                </div>
+            `;
+        });
+        // ДОБАВЬ ЭТУ СТРОКУ - показываем кнопку когда есть товары
+        clearCartBtn.style.display = 'block';
     }
+    
+    cartItems.innerHTML = html;
+    cartTotal.textContent = total + ' lei';
+}
 
     // Show cart notification
     function showCartNotification(item) {
@@ -1506,37 +1528,43 @@ function addToCart(item, price) {
     }
 
     // ========== CART SIDEBAR ==========
-    function initCartSidebar() {
-        const cartButton = document.getElementById('cartButton');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const closeCart = document.querySelector('.close-cart');
-        const checkoutBtn = document.getElementById('checkoutBtn');
+function initCartSidebar() {
+    const cartButton = document.getElementById('cartButton');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCart = document.querySelector('.close-cart');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const clearCartBtn = document.getElementById('clearCartBtn'); // ДОБАВЬ ЭТУ СТРОКУ
+    
+    cartButton.addEventListener('click', function() {
+        cartSidebar.classList.add('active');
+    });
+    
+    closeCart.addEventListener('click', function() {
+        cartSidebar.classList.remove('active');
+    });
+    
+    // ДОБАВЬ ЭТОТ БЛОК
+    clearCartBtn.addEventListener('click', function() {
+        clearCart();
+    });
+    
+    checkoutBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+            alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
+            return;
+        }
         
-        cartButton.addEventListener('click', function() {
-            cartSidebar.classList.add('active');
-        });
-        
-        closeCart.addEventListener('click', function() {
+        cartSidebar.classList.remove('active');
+        showOrderModal();
+    });
+    
+    // Close cart when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
             cartSidebar.classList.remove('active');
-        });
-        
-        checkoutBtn.addEventListener('click', function() {
-            if (cart.length === 0) {
-                alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
-                return;
-            }
-            
-            cartSidebar.classList.remove('active');
-            showOrderModal();
-        });
-        
-        // Close cart when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
-                cartSidebar.classList.remove('active');
-            }
-        });
-    }
+        }
+    });
+}
 
     // ========== ORDER MODAL ==========
     function showOrderModal() {
