@@ -3,34 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AME Coffee - Premium Coffee Experience în București</title>
+    <title>AME Coffee - Cafenea de Cartier în București</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== VARIABLES & RESET ===== */
         :root {
             --primary: #8B6B61;
-            --primary-dark: #5D4037;
-            --primary-light: #D7CCC8;
-            --secondary: #BCAAA4;
-            --accent: #A1887F;
-            --gold: #D4AF37;
+            --secondary: #D7CCC8;
+            --accent: #5D4037;
             --light: #FFF8F0;
-            --dark: #3E2723;
             --text: #4E342E;
             --white: #FFFFFF;
-            --success: #4CAF50;
-            --warning: #FF9800;
-            --error: #F44336;
-            
-            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.12);
-            --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.15);
-            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.2);
-            
-            --border-radius: 12px;
-            --border-radius-lg: 20px;
-            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * {
@@ -39,198 +21,62 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             color: var(--text);
             background-color: var(--light);
-            overflow-x: hidden;
-            font-weight: 400;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        h1 { font-size: 3.5rem; }
-        h2 { font-size: 2.8rem; }
-        h3 { font-size: 2.2rem; }
-        h4 { font-size: 1.8rem; }
-
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: var(--text);
         }
 
         .container {
             width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .container-narrow {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
         section {
-            padding: 100px 0;
-            position: relative;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: var(--transition);
+            padding: 80px 0;
         }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        p {
+            margin-bottom: 15px;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            display: inline-block;
             background: var(--primary);
             color: var(--white);
-            padding: 16px 35px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 50px;
+            border-radius: 30px;
             cursor: pointer;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 16px;
             font-weight: 600;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.7s;
-        }
-
-        .btn:hover:before {
-            left: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 107, 97, 0.3);
         }
 
         .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 107, 97, 0.4);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-large {
-            padding: 18px 45px;
-            font-size: 1.2rem;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-        }
-
-        .btn-outline:hover {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        /* ===== PRELOADER ===== */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loader {
-            width: 80px;
-            height: 80px;
-            position: relative;
-        }
-
-        .loader-inner {
-            width: 100%;
-            height: 100%;
-            border: 5px solid transparent;
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1.2s linear infinite;
-        }
-
-        .loader-inner:before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            border: 5px solid transparent;
-            border-top: 5px solid var(--gold);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite reverse;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ===== HEADER & NAVIGATION ===== */
+        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-sm);
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: var(--transition);
-        }
-
-        header.scrolled {
-            padding: 5px 0;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: var(--shadow-md);
         }
 
         nav {
@@ -238,366 +84,130 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
-            transition: var(--transition);
         }
 
         .logo {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: bold;
             color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-            font-family: 'Playfair Display', serif;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
+            gap: 8px;
         }
 
         .logo i {
-            color: var(--gold);
-            animation: bounce 2s infinite;
-            font-size: 2.5rem;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-8px); }
-            60% { transform: translateY(-4px); }
+            font-size: 28px;
+            color: var(--accent);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             align-items: center;
-            gap: 30px;
         }
 
         .nav-links li {
-            position: relative;
+            margin-left: 30px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text);
             font-weight: 500;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            position: relative;
-            padding: 8px 0;
+            transition: color 0.3s;
         }
 
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover:after,
-        .nav-links a.active:after {
-            width: 100%;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
+        .nav-links a:hover {
             color: var(--primary);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
 
         .cart-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: var(--transition);
+            gap: 8px;
+            transition: all 0.3s ease;
             font-weight: 500;
-            font-size: 1rem;
-            box-shadow: var(--shadow-sm);
         }
 
         .cart-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            background: var(--accent);
+            transform: scale(1.05);
         }
 
         .cart-count {
-            background: var(--gold);
-            color: var(--dark);
+            background: var(--accent);
+            color: white;
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 12px;
             font-weight: bold;
         }
 
         .mobile-menu {
             display: none;
-            font-size: 1.8rem;
+            font-size: 24px;
             cursor: pointer;
             color: var(--primary);
-            transition: var(--transition);
-            background: none;
-            border: none;
         }
 
-        .mobile-menu:hover {
-            transform: rotate(90deg);
-        }
-
-        /* ===== HERO SECTION ===== */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(139, 107, 97, 0.9) 0%, rgba(93, 64, 55, 0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
-            min-height: 800px;
+            height: 70vh;
             display: flex;
             align-items: center;
             text-align: center;
             color: var(--white);
-            margin-top: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-            animation: backgroundMove 20s linear infinite;
-        }
-
-        @keyframes backgroundMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100px, -100px); }
+            margin-top: 70px;
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 48px;
+            margin-bottom: 20px;
             color: var(--white);
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1.2s ease-out 0.3s both;
-            line-height: 1.1;
         }
 
         .hero p {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            animation: fadeInUp 1.2s ease-out 0.6s both;
+            font-size: 20px;
+            margin-bottom: 30px;
         }
 
-        .hero-actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1.2s ease-out 0.9s both;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 60px;
-            animation: fadeInUp 1.2s ease-out 1.2s both;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ===== ABOUT SECTION ===== */
-        .about {
-            background: var(--white);
-            position: relative;
-        }
-
-        .about-bg-pattern {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b6b61' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-text {
-            position: relative;
-        }
-
-        .about-badge {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--dark);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .about-features {
-            margin: 30px 0;
-        }
-
-        .feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            transition: var(--transition);
-        }
-
-        .feature:hover .feature-icon {
-            background: var(--primary);
-            color: var(--white);
-            transform: scale(1.1);
-        }
-
-        .about-image {
-            position: relative;
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            transform: perspective(1000px) rotateY(-5deg);
-            transition: var(--transition);
-        }
-
-        .about-image:hover {
-            transform: perspective(1000px) rotateY(0deg);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: var(--transition);
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .image-badge {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            background: var(--white);
-            padding: 15px 25px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* ===== MENU SECTION ===== */
+        /* Menu Section */
         .menu {
-            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-
-        .section-subtitle {
-            display: inline-block;
-            color: var(--primary);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+            background: var(--secondary);
         }
 
         .section-title {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 50px;
         }
 
-        .section-title:after {
+        .section-title h2 {
+            font-size: 36px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2:after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -606,54 +216,37 @@
             width: 80px;
             height: 3px;
             background: var(--primary);
-            animation: widthGrow 1.5s ease-out;
-        }
-
-        @keyframes widthGrow {
-            from { width: 0; }
-            to { width: 80px; }
-        }
-
-        .section-description {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            color: var(--text);
-            opacity: 0.8;
         }
 
         .menu-categories {
             display: flex;
             justify-content: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
             gap: 15px;
         }
 
         .category-btn {
             background: var(--white);
-            border: 2px solid var(--primary-light);
-            color: var(--text);
-            padding: 12px 30px;
-            border-radius: 50px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
-            transition: var(--transition);
-            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         .category-btn.active,
         .category-btn:hover {
             background: var(--primary);
-            border-color: var(--primary);
             color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
@@ -663,152 +256,212 @@
 
         .menu-category.active {
             display: block;
-            animation: fadeIn 0.6s ease;
         }
 
         .menu-item {
             background: var(--white);
-            border-radius: var(--border-radius-lg);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .menu-item:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transition: var(--transition);
-            z-index: 1;
-        }
-
-        .menu-item:hover:before {
-            transform: scaleX(1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         .menu-item:hover {
             transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .menu-item-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gold);
-            color: var(--dark);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        .menu-item-image {
-            height: 220px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .menu-item-image img {
+        .menu-item img {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .menu-item:hover .menu-item-image img {
-            transform: scale(1.1);
         }
 
         .menu-item-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+            padding: 20px;
         }
 
-        .menu-item-header {
+        .menu-item h3 {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            align-items: center;
         }
 
-        .menu-item-title {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-            flex: 1;
-        }
-
-        .menu-item-price {
+        .price {
             color: var(--primary);
             font-weight: 700;
-            font-size: 1.4rem;
-            margin-left: 15px;
-        }
-
-        .menu-item-description {
-            color: var(--text);
-            opacity: 0.8;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .menu-item-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .menu-item-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--gold);
         }
 
         .order-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
         }
 
         .order-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            background: var(--accent);
+            transform: scale(1.05);
         }
 
-        /* ===== CART SIDEBAR ===== */
+        /* About Section */
+        .about {
+            background: var(--white);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--white);
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--accent);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .footer-column:last-child {
+            margin-right: 0;
+        }
+
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Cart Sidebar */
         .cart-sidebar {
             position: fixed;
             top: 0;
-            right: -450px;
-            width: 420px;
+            right: -400px;
+            width: 380px;
             height: 100vh;
             background: var(--white);
-            box-shadow: var(--shadow-xl);
-            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
             z-index: 2000;
             display: flex;
             flex-direction: column;
@@ -819,8 +472,8 @@
         }
 
         .cart-header {
-            padding: 25px;
-            border-bottom: 1px solid var(--primary-light);
+            padding: 20px;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -832,20 +485,8 @@
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 24px;
             cursor: pointer;
-            transition: var(--transition);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-cart:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(90deg);
         }
 
         .cart-items {
@@ -854,26 +495,12 @@
             overflow-y: auto;
         }
 
-        .cart-empty {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text);
-            opacity: 0.7;
-        }
-
-        .cart-empty i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--primary-light);
-        }
-
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--primary-light);
-            animation: slideInRight 0.3s ease;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .cart-item-info {
@@ -883,7 +510,6 @@
         .cart-item-name {
             font-weight: 600;
             margin-bottom: 5px;
-            font-size: 1.1rem;
         }
 
         .cart-item-price {
@@ -894,50 +520,37 @@
         .cart-item-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .quantity-btn {
-            background: var(--primary-light);
+            background: var(--secondary);
             border: none;
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
-            font-weight: bold;
-        }
-
-        .quantity-btn:hover {
-            background: var(--primary);
-            color: white;
         }
 
         .cart-footer {
-            padding: 25px;
-            border-top: 1px solid var(--primary-light);
+            padding: 20px;
+            border-top: 1px solid #eee;
             background: var(--light);
         }
 
         .cart-total {
             display: flex;
             justify-content: space-between;
-            font-size: 1.3rem;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 20px;
-            color: var(--primary-dark);
+            color: var(--accent);
         }
 
-        .cart-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* ===== ORDER MODAL ===== */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -945,10 +558,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 2000;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
@@ -957,431 +568,45 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 40px;
-            border-radius: var(--border-radius-lg);
-            max-width: 600px;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-xl);
-            animation: modalSlideIn 0.4s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -60%);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
         }
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.8rem;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
             cursor: pointer;
-            color: var(--text);
-            transition: var(--transition);
-            background: none;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .close-modal:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid var(--primary-light);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-            font-family: inherit;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(139, 107, 97, 0.1);
-        }
-
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .order-summary {
-            background: var(--light);
-            padding: 25px;
-            border-radius: var(--border-radius);
-            margin: 25px 0;
-        }
-
-        .order-summary h4 {
-            margin-bottom: 15px;
-            color: var(--primary-dark);
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--primary-light);
-        }
-
-        .summary-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--primary-dark);
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid var(--primary-light);
-        }
-
-        /* ===== CONTACT SECTION ===== */
-        .contact {
-            background: var(--white);
-            position: relative;
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-        }
-
-        .contact-info {
-            position: relative;
-        }
-
-        .contact-details {
-            margin-bottom: 40px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 25px;
-            transition: var(--transition);
-            padding: 15px;
-            border-radius: var(--border-radius);
-        }
-
-        .contact-item:hover {
-            background: var(--light);
-            transform: translateX(10px);
-        }
-
-        .contact-item i {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            color: var(--primary);
-            font-size: 1.2rem;
-            transition: var(--transition);
-            flex-shrink: 0;
-        }
-
-        .contact-item:hover i {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .contact-item-content h4 {
-            margin-bottom: 5px;
-            font-size: 1.2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.2rem;
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-5px);
-        }
-
-        .contact-form {
-            background: var(--light);
-            padding: 40px;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 80px 0 30px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-
-        .footer-column h3 {
-            color: var(--white);
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .footer-logo i {
-            color: var(--gold);
-        }
-
-        .footer-about {
-            opacity: 0.8;
-            margin-bottom: 25px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: var(--white);
-            transform: translateX(5px);
-        }
-
-        .footer-links a i {
-            font-size: 0.8rem;
-            color: var(--primary);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
-        }
-
-        /* ===== FLOATING ELEMENTS ===== */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .floating-element {
-            position: absolute;
-            background: var(--primary);
-            opacity: 0.05;
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 1200px) {
-            html { font-size: 15px; }
-            .hero h1 { font-size: 4rem; }
-            .about-content { gap: 60px; }
-            .contact-container { gap: 60px; }
-        }
-
-        @media (max-width: 992px) {
-            html { font-size: 14px; }
-            .about-content,
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero h1 { font-size: 3.5rem; }
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-            }
-            
-            .cart-sidebar {
-                width: 380px;
-            }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                height: auto;
-                background: var(--white);
-                flex-direction: column;
-                padding: 40px 20px 20px;
-                box-shadow: var(--shadow-lg);
-                animation: slideDown 0.3s ease;
-                z-index: 1000;
-                max-height: 80vh;
-                overflow: auto;
             }
-
-            @keyframes slideDown {
-                from { opacity: 0; transform: translateY(-20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li {
-                margin: 10px 0;
-                animation: fadeInLeft 0.5s ease both;
-                width: 100%;
-                text-align: center;
-            }
-
-            @keyframes fadeInLeft {
-                from { opacity: 0; transform: translateX(-20px); }
-                to { opacity: 1; transform: translateX(0); }
-            }
-
-            .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-            .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-            .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-            .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-
+            
             .mobile-menu {
                 display: block;
-                z-index: 1001;
             }
-
-            .hero h1 { font-size: 3rem; }
-            .hero p { font-size: 1.2rem; }
-            .hero-actions { flex-direction: column; }
-            .hero-stats { gap: 30px; }
             
-            .menu-grid {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-content, .contact-container {
+                flex-direction: column;
             }
             
             .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                margin-right: 0;
+                margin-bottom: 30px;
             }
             
             .cart-sidebar {
@@ -1389,60 +614,24 @@
                 right: -100%;
             }
         }
-
-        @media (max-width: 576px) {
-            section { padding: 70px 0; }
-            .hero { min-height: 700px; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero-stats { flex-direction: column; gap: 20px; }
-            .about-content { gap: 40px; }
-            .contact-form { padding: 25px; }
-            .modal-content { padding: 25px; }
-        }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader">
-            <div class="loader-inner"></div>
-        </div>
-    </div>
-
-    <!-- Floating Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-element" style="width: 120px; height: 120px; top: 10%; left: 5%; animation-delay: 0s;"></div>
-        <div class="floating-element" style="width: 80px; height: 80px; top: 70%; right: 8%; animation-delay: 2s;"></div>
-        <div class="floating-element" style="width: 60px; height: 60px; bottom: 20%; left: 15%; animation-delay: 4s;"></div>
-        <div class="floating-element" style="width: 100px; height: 100px; top: 40%; right: 20%; animation-delay: 6s;"></div>
-    </div>
-
     <!-- Cart Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h3><i class="fas fa-shopping-cart"></i> Coșul tău</h3>
+            <h3>Coșul tău</h3>
             <button class="close-cart">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <div class="cart-empty">
-                <i class="fas fa-coffee"></i>
-                <h4>Coșul este gol</h4>
-                <p>Adaugă produse pentru a vedea comanda aici</p>
-            </div>
+            <!-- Cart items will be added here dynamically -->
         </div>
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Total:</span>
                 <span id="cartTotal">0 lei</span>
             </div>
-            <div class="cart-actions">
-                <button class="btn" id="clearCartBtn" style="background: var(--error);">
-                    <i class="fas fa-trash"></i> Șterge tot
-                </button>
-                <button class="btn" id="checkoutBtn">
-                    <i class="fas fa-credit-card"></i> Finalizează Comanda
-                </button>
-            </div>
+            <button class="btn" id="checkoutBtn" style="width: 100%;">Finalizează Comanda</button>
         </div>
     </div>
 
@@ -1452,12 +641,12 @@
             <nav>
                 <a href="#" class="logo">
                     <i class="fas fa-coffee"></i>
-                    AME Coffee
+                    Ame Coffee
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#home" class="active">Acasă</a></li>
-                    <li><a href="#about">Despre Noi</a></li>
+                    <li><a href="#home">Acasă</a></li>
                     <li><a href="#menu">Meniu</a></li>
+                    <li><a href="#about">Despre Noi</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li>
                         <button class="cart-btn" id="cartButton">
@@ -1467,9 +656,9 @@
                         </button>
                     </li>
                 </ul>
-                <button class="mobile-menu">
+                <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
-                </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -1478,28 +667,122 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>Premium Coffee Experience în Inima Bucureștiului</h1>
-                <p>Descoperă arome autentice, ingrediente de calitate superioară și servicii personalizate într-un ambient rafinat și relaxant.</p>
-                <div class="hero-actions">
-                    <a href="#menu" class="btn btn-large">
-                        <i class="fas fa-coffee"></i> Vezi Meniul
-                    </a>
-                    <a href="#about" class="btn btn-large btn-outline">
-                        <i class="fas fa-store"></i> Despre Noi
-                    </a>
+                <h1>Cea mai bună cafea din București</h1>
+                <p>Bucură-te de arome autentice și de o atmosferă relaxantă în inima orașului. Comandă online și ridică rapid!</p>
+                <a href="#menu" class="btn">Vezi Meniul</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meniul Nostru</h2>
+                <p>Descoperă aromele noastre speciale și comandă online</p>
+            </div>
+            
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="cafea">Cafea</button>
+                <button class="category-btn" data-category="mancare">Mâncare</button>
+            </div>
+
+            <!-- Cafea Category -->
+            <div class="menu-category active" id="cafea">
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
+                        <div class="menu-item-content">
+                            <h3>Espresso <span class="price">12 lei</span></h3>
+                            <p>Cafea puternică și concentrată - cea mai simplă formă de cafea</p>
+                            <button class="order-btn" data-item="Espresso" data-price="12">Adaugă în comandă</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cappuccino">
+                        <div class="menu-item-content">
+                            <h3>Cappuccino <span class="price">15 lei</span></h3>
+                            <p>Cafea cu lapte spumat și puțină spumă deasupra - cel mai popular tip de cafea cu lapte</p>
+                            <button class="order-btn" data-item="Cappuccino" data-price="15">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1561882468-9110e03e0f78?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Latte">
+                        <div class="menu-item-content">
+                            <h3>Latte <span class="price">16 lei</span></h3>
+                            <p>Cafea cu mult lapte și puțină spumă - mai puțin puternică, foarte cremoasă</p>
+                            <button class="order-btn" data-item="Latte" data-price="16">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1580661869408-55ab23f2ca6e?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Americano">
+                        <div class="menu-item-content">
+                            <h3>Americano <span class="price">13 lei</span></h3>
+                            <p>Cafea lungă făcută din espresso cu apă fierbinte - similară cu cafeaua de filtru</p>
+                            <button class="order-btn" data-item="Americano" data-price="13">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1596078841242-12f73dc697c6?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Mocha">
+                        <div class="menu-item-content">
+                            <h3>Mocha <span class="price">18 lei</span></h3>
+                            <p>Cafea cu ciocolată și lapte - ca o ciocolată caldă cu cafea</p>
+                            <button class="order-btn" data-item="Mocha" data-price="18">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Macchiato">
+                        <div class="menu-item-content">
+                            <h3>Macchiato <span class="price">14 lei</span></h3>
+                            <p>Cafea puternică cu un strop de spumă de lapte - pentru cei care vor doar un pic de lapte</p>
+                            <button class="order-btn" data-item="Macchiato" data-price="14">Adaugă în comandă</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Clienți Zilnic</span>
+            </div>
+
+            <!-- Mâncare Category -->
+            <div class="menu-category" id="mancare">
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1599940778173-e276d4acb2bb?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Croissant">
+                        <div class="menu-item-content">
+                            <h3>Croissant <span class="price">8 lei</span></h3>
+                            <p>Croissant proaspăt cu unt, crocant și pufos</p>
+                            <button class="order-btn" data-item="Croissant" data-price="8">Adaugă în comandă</button>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Sortimente Cafea</span>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Sandviș">
+                        <div class="menu-item-content">
+                            <h3>Sandviș Proaspăt <span class="price">18 lei</span></h3>
+                            <p>Sandviș cu șuncă, cașcaval, salată și roșii proaspete</p>
+                            <button class="order-btn" data-item="Sandviș Proaspăt" data-price="18">Adaugă în comandă</button>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <span class="stat-number">98%</span>
-                        <span class="stat-label">Satisfacție Clienți</span>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1650844010413-3f24dc1c182b?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Quiche">
+                        <div class="menu-item-content">
+                            <h3>Quiche Lorraine <span class="price">22 lei</span></h3>
+                            <p>Plăcintă sărată cu șuncă, brânză și smântână</p>
+                            <button class="order-btn" data-item="Quiche Lorraine" data-price="22">Adaugă în comandă</button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Pizza">
+                        <div class="menu-item-content">
+                            <h3>Pizza <span class="price">28 lei</span></h3>
+                            <p>Pizza italiană autentică cu ingrediente proaspete</p>
+                            <button class="order-btn" data-item="Pizza" data-price="28">Adaugă în comandă</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1508,172 +791,28 @@
 
     <!-- About Section -->
     <section class="about" id="about">
-        <div class="about-bg-pattern"></div>
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <span class="about-badge">Despre AME Coffee</span>
-                    <h2>Pasiunea Noastră pentru Cafea de Calitate</h2>
-                    <p>La AME Coffee, transformăm fiecare ceașcă de cafea într-o experiență memorabilă. Folosim boabe de cafea premium din cele mai bune regiuni cafeniere ale lumii, prăjite artizanal pentru a extrage toate aromele și subtilitățile.</p>
-                    
-                    <div class="about-features">
-                        <div class="feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-seedling"></i>
-                            </div>
-                            <div>
-                                <h4>Boabe Premium</h4>
-                                <p>Boabe de cafea 100% Arabica din surse sustenabile și de încredere.</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-mortar-pestle"></i>
-                            </div>
-                            <div>
-                                <h4>Prăjire Artizanală</h4>
-                                <p>Proces de prăjire controlat care păstrează aromele naturale.</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-award"></i>
-                            </div>
-                            <div>
-                                <h4>Baristi Certificați</h4>
-                                <p>Echipa noastră de baristi este pregătită să creeze băuturi perfecte.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <a href="#menu" class="btn">
-                        <i class="fas fa-coffee"></i> Explorează Meniul
-                    </a>
+                    <h2>Despre Ame Coffee</h2>
+                    <p>Bine ați venit la Ame Coffee, locul unde pasiunea pentru cafea se întâlnește cu comunitatea. Suntem o cafenea de cartier care îți oferă cea mai bună cafea din București.</p>
+                    <p>Fiecare ceașcă de cafea este preparată cu grijă de baristi noștri experimentați, care știu să extragă toate aromele și subtilitățile fiecărui sortiment.</p>
+                    <p>Vino să ne vizitezi la Bulevardul Ion Mihalache și bucură-te de o cafea excelentă într-un ambient primitor!</p>
+                    <a href="#contact" class="btn">Contactează-ne</a>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul AME Coffee">
-                    <div class="image-badge">
-                        <h4>Deschis Zilnic</h4>
-                        <p>7:00 - 23:00</p>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul Ame Coffee">
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Menu Section -->
-    <section class="menu" id="menu">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Meniul Nostru</span>
-                <h2 class="section-title">Specialitățile Noastre</h2>
-                <p class="section-description">Descoperă o gamă diversificată de băuturi și preparate culinare, create cu pasiune și ingrediente de cea mai înaltă calitate.</p>
-            </div>
-            
-            <div class="menu-categories">
-                <button class="category-btn active" data-category="bauturi">Băuturi Calde</button>
-                <button class="category-btn" data-category="bauturi-reci">Băuturi Reci</button>
-                <button class="category-btn" data-category="mancare">Mâncare</button>
-                <button class="category-btn" data-category="desert">Deserturi</button>
-            </div>
-
-            <!-- Băuturi Calde Category -->
-            <div class="menu-category active" id="bauturi">
-                <div class="menu-grid">
-                    <!-- Coffee Items -->
-                    <div class="menu-item">
-                        <div class="menu-item-badge">Popular</div>
-                        <div class="menu-item-image">
-                            <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-header">
-                                <h3 class="menu-item-title">Espresso</h3>
-                                <span class="menu-item-price">14 lei</span>
-                            </div>
-                            <p class="menu-item-description">Cafea puternică și concentrată - esența pură a aromei de cafea. Perfectă pentru începutul zilei.</p>
-                            <div class="menu-item-footer">
-                                <div class="menu-item-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>(128)</span>
-                                </div>
-                                <button class="order-btn" data-item="Espresso" data-price="14">
-                                    <i class="fas fa-plus"></i> Adaugă
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Additional menu items would continue here -->
-                    <!-- For brevity, I've included one example. The full implementation would include all menu items -->
-                    
-                </div>
-            </div>
-
-            <!-- Additional categories would be implemented similarly -->
-            
-        </div>
-    </section>
-
-    <!-- Order Modal -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <button class="close-modal">&times;</button>
-            <h2>Finalizează Comanda</h2>
-            <form id="orderForm">
-                <input type="hidden" id="selectedItems" name="items">
-                <input type="hidden" id="totalPrice" name="totalPrice">
-                
-                <div class="form-group">
-                    <label for="customerName" class="form-label">Nume complet</label>
-                    <input type="text" id="customerName" name="name" class="form-control" required placeholder="Introdu numele tău">
-                </div>
-                
-                <div class="form-group">
-                    <label for="customerPhone" class="form-label">Număr de telefon</label>
-                    <input type="tel" id="customerPhone" name="phone" class="form-control" required placeholder="07xxxxxxxx">
-                </div>
-                
-                <div class="form-group">
-                    <label for="pickupTime" class="form-label">Ora ridicării</label>
-                    <input type="time" id="pickupTime" name="pickup_time" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="specialInstructions" class="form-label">Instrucțiuni speciale</label>
-                    <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, extra shot espresso, etc."></textarea>
-                </div>
-                
-                <div class="order-summary">
-                    <h4>Sumar comandă</h4>
-                    <div id="order-summary"></div>
-                    <div class="summary-total">
-                        <span>Total de plată:</span>
-                        <span id="summary-total-price">0 lei</span>
-                    </div>
-                    <p style="color: var(--primary); font-weight: 600; margin-top: 15px; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> Plata se face la ridicarea comenzii
-                    </p>
-                </div>
-                
-                <button type="submit" class="btn" id="submit-order" style="width: 100%;">
-                    <i class="fab fa-whatsapp"></i> Trimite Comanda pe WhatsApp
-                </button>
-            </form>
-        </div>
-    </div>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Contact</span>
-                <h2 class="section-title">Ia Legătura cu Noi</h2>
-                <p class="section-description">Vino să ne vizitezi sau contactează-ne pentru orice întrebări sau rezervări.</p>
+            <div class="section-title">
+                <h2>Contact</h2>
+                <p>Vino să ne vizitezi sau ia legătura cu noi</p>
             </div>
             <div class="contact-container">
                 <div class="contact-info">
@@ -1681,70 +820,56 @@
                         <h3>Informații de contact</h3>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <div class="contact-item-content">
+                            <div>
                                 <h4>Adresă</h4>
-                                <p>Strada Exemplu 123, Sector 1, București</p>
-                                <small>Lângă Piața Romană</small>
+                                <p>Bulevardul Ion Mihalache, București</p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <div class="contact-item-content">
+                            <div>
                                 <h4>Telefon</h4>
                                 <p>+40 721 123 456</p>
-                                <small>Luni - Duminică: 7:00 - 23:00</small>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <div class="contact-item-content">
+                            <div>
                                 <h4>Email</h4>
                                 <p>contact@amecoffee.ro</p>
-                                <small>Răspundem în 24 de ore</small>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-clock"></i>
-                            <div class="contact-item-content">
+                            <div>
                                 <h4>Program</h4>
-                                <p><strong>Luni - Vineri:</strong> 7:00 - 22:00</p>
-                                <p><strong>Sâmbătă - Duminică:</strong> 8:00 - 23:00</p>
+                                <p>Luni - Duminică: 7:00 - 23:00</p>
                             </div>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" title="TripAdvisor">
-                            <i class="fab fa-tripadvisor"></i>
-                        </a>
-                        <a href="#" class="social-link" title="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
                     <h3>Trimite-ne un mesaj</h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <label for="name" class="form-label">Nume complet</label>
+                            <label for="name">Nume</label>
                             <input type="text" id="name" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label">Adresă de email</label>
+                            <label for="email">Email</label>
                             <input type="email" id="email" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="message" class="form-label">Mesajul tău</label>
-                            <textarea id="message" name="message" class="form-control" required placeholder="Ce mesaj ai pentru noi?"></textarea>
+                            <label for="message">Mesaj</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
                         </div>
-                        <button type="submit" class="btn" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i> Trimite Mesaj
-                        </button>
+                        <button type="submit" class="btn">Trimite Mesaj</button>
                     </form>
                 </div>
             </div>
@@ -1756,665 +881,282 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <div class="footer-logo">
-                        <i class="fas fa-coffee"></i>
-                        AME Coffee
-                    </div>
-                    <p class="footer-about">AME Coffee este mai mult decât o simplă cafenea - este un spațiu unde pasiunea pentru cafea se întâlnește cu arta preparării. Aici, fiecare ceașcă spune o poveste.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
+                    <h3>Ame Coffee</h3>
+                    <p>Cea mai bună cafea din București. Comandă online și ridică rapid!</p>
                 </div>
                 <div class="footer-column">
                     <h3>Link-uri rapide</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Acasă</a></li>
-                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Despre Noi</a></li>
-                        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Meniu</a></li>
-                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Termeni și Condiții</a></li>
+                    <ul>
+                        <li><a href="#home">Acasă</a></li>
+                        <li><a href="#menu">Meniu</a></li>
+                        <li><a href="#about">Despre Noi</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Program</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-clock"></i> Luni - Vineri: 7:00-22:00</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Sâmbătă: 8:00-23:00</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Duminică: 8:00-23:00</a></li>
-                        <li><a href="#"><i class="fas fa-info-circle"></i> Comenzi Online: Non-stop</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Newsletter</h3>
-                    <p style="opacity: 0.8; margin-bottom: 20px;">Abonează-te la newsletter pentru oferte exclusive și noutăți.</p>
-                    <form id="newsletterForm" style="display: flex; gap: 10px;">
-                        <input type="email" placeholder="Email-ul tău" class="form-control" style="flex: 1; padding: 12px;">
-                        <button type="submit" class="btn" style="padding: 12px 20px;">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
+                    <p>Luni - Duminică: 7:00 - 23:00</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AME Coffee Shop. Toate drepturile rezervate. | Design și dezvoltare cu <i class="fas fa-heart" style="color: var(--gold);"></i></p>
+            <div class="copyright">
+                <p>&copy; 2023 Ame Coffee Shop. Toate drepturile rezervate.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Finalizează Comanda</h2>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="customerName">Nume</label>
+                    <input type="text" id="customerName" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Telefon</label>
+                    <input type="tel" id="customerPhone" name="phone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pickupTime">Ora ridicării</label>
+                    <input type="time" id="pickupTime" name="pickup_time" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialInstructions">Instrucțiuni speciale</label>
+                    <textarea id="specialInstructions" name="instructions" class="form-control" placeholder="Ex: fără zahăr, lapte de soia, etc."></textarea>
+                </div>
+                
+                <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h4>Sumar comandă</h4>
+                    <div id="order-summary"></div>
+                    <p style="color: var(--accent); font-weight: bold; margin-top: 15px;">Plata se face la ridicarea comenzii</p>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">Trimite Comanda</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-    // ========== PRELOADER ==========
-    window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        }, 1000);
-    });
+        // Cart functionality
+        let cart = [];
 
-    // ========== CART FUNCTIONALITY ==========
-    let cart = [];
-
-    // Initialize cart from localStorage
-    function initCart() {
-        const savedCart = localStorage.getItem('ameCoffeeCart');
-        if (savedCart) {
-            cart = JSON.parse(savedCart);
-            updateCartDisplay();
+        function initCart() {
+            const savedCart = localStorage.getItem('ameCoffeeCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartDisplay();
+            }
         }
-    }
 
-    // Save cart to localStorage
-    function saveCart() {
-        localStorage.setItem('ameCoffeeCart', JSON.stringify(cart));
-    }
+        function saveCart() {
+            localStorage.setItem('ameCoffeeCart', JSON.stringify(cart));
+        }
 
-    // Add to cart function
-    function addToCart(item, price) {
-        const existingItem = cart.find(cartItem => cartItem.name === item);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                name: item,
-                price: parseFloat(price),
-                quantity: 1
+        function addToCart(item, price) {
+            const existingItem = cart.find(cartItem => cartItem.name === item);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: item,
+                    price: parseFloat(price),
+                    quantity: 1
+                });
+            }
+            
+            updateCartDisplay();
+            saveCart();
+            showNotification(`${item} a fost adăugat în coș!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            saveCart();
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                removeFromCart(index);
+            } else {
+                updateCartDisplay();
+                saveCart();
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            let html = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                html = '<p style="text-align: center; color: #666;">Coșul tău este gol</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    html += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">${item.price} lei</div>
+                            </div>
+                            <div class="cart-item-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            cartItems.innerHTML = html;
+            cartTotal.textContent = total + ' lei';
+        }
+
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // Menu categories
+        function initMenuCategories() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const categories = document.querySelectorAll('.menu-category');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    categories.forEach(cat => {
+                        cat.classList.remove('active');
+                        if (cat.id === category) {
+                            cat.classList.add('active');
+                        }
+                    });
+                });
             });
         }
-        
-        updateCartDisplay();
-        saveCart();
-        showCartNotification(item);
-        
-        // Auto-open cart on mobile devices
-        if (window.innerWidth <= 768) {
+
+        // Cart sidebar
+        function initCartSidebar() {
+            const cartButton = document.getElementById('cartButton');
             const cartSidebar = document.getElementById('cartSidebar');
-            cartSidebar.classList.add('active');
+            const closeCart = document.querySelector('.close-cart');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            cartButton.addEventListener('click', function() {
+                cartSidebar.classList.add('active');
+            });
+            
+            closeCart.addEventListener('click', function() {
+                cartSidebar.classList.remove('active');
+            });
+            
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Coșul tău este gol! Adaugă produse în coș pentru a continua.');
+                    return;
+                }
+                
+                cartSidebar.classList.remove('active');
+                showOrderModal();
+            });
         }
-    }
 
-    // Remove from cart
-    function removeFromCart(index) {
-        cart.splice(index, 1);
-        updateCartDisplay();
-        saveCart();
-    }
-
-    // Clear entire cart
-    function clearCart() {
-        if (cart.length === 0) {
-            showNotification('Coșul tău este deja gol!', 'info');
-            return;
-        }
-        
-        if (confirm('Sigur dorești să ștergi toate produsele din coș?')) {
-            cart = [];
-            updateCartDisplay();
-            saveCart();
-            showNotification('Coșul a fost golit!', 'success');
-        }
-    }
-
-    // Update quantity
-    function updateQuantity(index, change) {
-        cart[index].quantity += change;
-        
-        if (cart[index].quantity <= 0) {
-            removeFromCart(index);
-        } else {
-            updateCartDisplay();
-            saveCart();
-        }
-    }
-
-    // Update cart display
-    function updateCartDisplay() {
-        const cartItems = document.getElementById('cartItems');
-        const cartCount = document.getElementById('cartCount');
-        const cartTotal = document.getElementById('cartTotal');
-        const clearCartBtn = document.getElementById('clearCartBtn');
-        
-        // Update cart count
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCount.textContent = totalItems;
-        
-        // Update cart items
-        let html = '';
-        let total = 0;
-        
-        if (cart.length === 0) {
-            html = `
-                <div class="cart-empty">
-                    <i class="fas fa-coffee"></i>
-                    <h4>Coșul este gol</h4>
-                    <p>Adaugă produse pentru a vedea comanda aici</p>
-                </div>
-            `;
-            clearCartBtn.style.display = 'none';
-        } else {
-            cart.forEach((item, index) => {
+        // Order modal
+        function showOrderModal() {
+            const orderModal = document.getElementById('orderModal');
+            const orderSummary = document.getElementById('order-summary');
+            
+            let summaryHtml = '';
+            let total = 0;
+            
+            cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
-                
-                html += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${item.price} lei</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                            <span style="margin: 0 10px; font-weight: 600; min-width: 30px; text-align: center;">${item.quantity}</span>
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                        </div>
-                    </div>
-                `;
+                summaryHtml += `<p>${item.name} - ${item.quantity} × ${item.price} lei = ${itemTotal} lei</p>`;
             });
-            clearCartBtn.style.display = 'block';
+            
+            summaryHtml += `<p style="font-weight: bold; margin-top: 10px; color: var(--accent);">Total: ${total} lei</p>`;
+            orderSummary.innerHTML = summaryHtml;
+            
+            orderModal.style.display = 'block';
         }
-        
-        cartItems.innerHTML = html;
-        cartTotal.textContent = total.toFixed(2) + ' lei';
-    }
 
-    // Show cart notification
-    function showCartNotification(item) {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-lg);
-            z-index: 3000;
-            animation: slideInRight 0.3s ease;
-            max-width: 300px;
-            border-left: 4px solid var(--gold);
-        `;
-        
-        notification.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.2rem;"></i>
-                <div>
-                    <strong style="display: block;">${item}</strong>
-                    <small style="opacity: 0.9;">a fost adăugat în coș!</small>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
-    }
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initCart();
+            initMenuCategories();
+            initCartSidebar();
+            
+            // Mobile menu
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('active');
+            });
 
-    // ========== MENU CATEGORIES ==========
-    function initMenuCategories() {
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const categories = document.querySelectorAll('.menu-category');
-        
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                categories.forEach(cat => {
-                    cat.classList.remove('active');
-                    if (cat.id === category) {
-                        cat.classList.add('active');
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });
-        });
-    }
 
-    // ========== CART SIDEBAR ==========
-    function initCartSidebar() {
-        const cartButton = document.getElementById('cartButton');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const closeCart = document.querySelector('.close-cart');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-        const clearCartBtn = document.getElementById('clearCartBtn');
-        
-        cartButton.addEventListener('click', function() {
-            cartSidebar.classList.add('active');
-        });
-        
-        closeCart.addEventListener('click', function() {
-            cartSidebar.classList.remove('active');
-        });
-        
-        clearCartBtn.addEventListener('click', function() {
-            clearCart();
-        });
-        
-        checkoutBtn.addEventListener('click', function() {
-            if (cart.length === 0) {
-                showNotification('Coșul tău este gol! Adaugă produse în coș pentru a continua.', 'error');
-                return;
-            }
-            
-            cartSidebar.classList.remove('active');
-            showOrderModal();
-        });
-        
-        document.addEventListener('click', function(e) {
-            if (!cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
-                cartSidebar.classList.remove('active');
-            }
-        });
-    }
+            // Add to cart buttons
+            document.querySelectorAll('.order-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const item = this.getAttribute('data-item');
+                    const price = this.getAttribute('data-price');
+                    addToCart(item, price);
+                });
+            });
 
-    // ========== ORDER MODAL ==========
-    function showOrderModal() {
-        const orderModal = document.getElementById('orderModal');
-        const orderSummary = document.getElementById('order-summary');
-        const summaryTotalPrice = document.getElementById('summary-total-price');
-        
-        let summaryHtml = '';
-        let total = 0;
-        
-        cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            summaryHtml += `
-                <div class="summary-item">
-                    <span>${item.name} × ${item.quantity}</span>
-                    <span>${itemTotal.toFixed(2)} lei</span>
-                </div>
-            `;
-        });
-        
-        orderSummary.innerHTML = summaryHtml;
-        summaryTotalPrice.textContent = total.toFixed(2) + ' lei';
-        
-        document.getElementById('selectedItems').value = JSON.stringify(cart);
-        document.getElementById('totalPrice').value = total;
-        
-        // Set default time to next hour
-        const now = new Date();
-        now.setHours(now.getHours() + 1);
-        now.setMinutes(0);
-        const nextHour = now.getHours().toString().padStart(2, '0') + ':00';
-        document.getElementById('pickupTime').value = nextHour;
-        
-        orderModal.style.display = 'block';
-    }
+            // Modal close
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('orderModal').style.display = 'none';
+            });
 
-    // ========== NOTIFICATION SYSTEM ==========
-    function showNotification(message, type = 'success') {
-        const notification = document.createElement('div');
-        const bgColor = type === 'success' ? 'var(--success)' : 
-                        type === 'error' ? 'var(--error)' : 
-                        type === 'warning' ? 'var(--warning)' : 'var(--primary)';
-        
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: ${bgColor};
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-lg);
-            z-index: 3000;
-            animation: slideInRight 0.3s ease;
-            max-width: 350px;
-            border-left: 4px solid rgba(255,255,255,0.3);
-        `;
-        
-        const icon = type === 'success' ? 'fa-check-circle' :
-                    type === 'error' ? 'fa-exclamation-circle' :
-                    type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
-        
-        notification.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <i class="fas ${icon}" style="font-size: 1.2rem;"></i>
-                <div style="flex: 1;">
-                    ${message}
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 4000);
-    }
-
-    // ========== EVENT LISTENERS ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        initCart();
-        initMenuCategories();
-        initCartSidebar();
-        
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            // Form submissions
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu
-                    document.querySelector('.nav-links').classList.remove('active');
-                    
-                    // Update active nav link
-                    document.querySelectorAll('.nav-links a').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                }
-            });
-        });
-
-        // Intersection Observer for section animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const scrolled = window.scrollY > 100;
-            
-            header.classList.toggle('scrolled', scrolled);
-        });
-
-        // Add to cart buttons
-        document.querySelectorAll('.order-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const item = this.getAttribute('data-item');
-                const price = this.getAttribute('data-price');
-                addToCart(item, price);
-            });
-        });
-
-        // Modal functionality
-        const orderModal = document.getElementById('orderModal');
-        const closeModal = document.querySelector('.close-modal');
-
-        closeModal.addEventListener('click', function() {
-            orderModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === orderModal) {
-                orderModal.style.display = 'none';
-            }
-        });
-
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se trimite...';
-            
-            try {
-                const contactData = {
-                    type: 'contact_form',
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    message: document.getElementById('message').value
-                };
-                
-                await sendToWhatsApp(contactData);
-                
-                showNotification(`Mulțumim, ${contactData.name}! Mesajul tău a fost trimis. Te vom contacta în curând.`, 'success');
+                alert('Mulțumim pentru mesaj! Vă vom contacta în curând.');
                 this.reset();
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Mesajul a fost primit! Vă vom contacta în curând.', 'success');
-                this.reset();
-            }
-            
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalText;
-        });
+            });
 
-        // Order form submission
-        document.getElementById('orderForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitButton = document.getElementById('submit-order');
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se trimite...';
-            
-            try {
-                const today = new Date().toLocaleDateString('ro-RO');
-                const orderData = {
-                    items: document.getElementById('selectedItems').value,
-                    totalPrice: document.getElementById('totalPrice').value,
-                    name: document.getElementById('customerName').value,
-                    phone: document.getElementById('customerPhone').value,
-                    pickupDate: today,
-                    pickupTime: document.getElementById('pickupTime').value,
-                    instructions: document.getElementById('specialInstructions').value || 'Fără instrucțiuni speciale'
-                };
-                
-                await sendToWhatsApp(orderData);
-                
+            document.getElementById('orderForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Comanda a fost trimisă! Vă vom contacta pentru confirmare.');
                 cart = [];
                 updateCartDisplay();
                 saveCart();
-                orderModal.style.display = 'none';
+                document.getElementById('orderModal').style.display = 'none';
                 this.reset();
-                
-                showNotification('Comanda a fost trimisă cu succes! Veți primi confirmarea în curând.', 'success');
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Comanda a fost primită! Vă vom contacta în curând pentru confirmare.', 'success');
-                orderModal.style.display = 'none';
-                this.reset();
-            }
-            
-            submitButton.disabled = false;
-            submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Trimite Comanda pe WhatsApp';
+            });
         });
-
-        // Newsletter form
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            showNotification(`Mulțumim pentru abonare! Vei primi oferte exclusive la ${email}`, 'success');
-            this.reset();
-        });
-    });
-
-    // ========== WHATSAPP FUNCTIONALITY ==========
-    async function sendToWhatsApp(data) {
-        const phoneNumber = '40729552767';
-        
-        let message = '';
-        
-        if (data.type === 'contact_form') {
-            message = `📩 MESAJ NOU DE PE SITE AME COFFEE\n\n👤 Nume: ${data.name}\n📧 Email: ${data.email}\n💬 Mesaj: ${data.message}\n\n🌐 www.amecoffee.ro`;
-        } else {
-            let itemsText = '';
-            let total = 0;
-            
-            if (data.items) {
-                const items = JSON.parse(data.items);
-                items.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    itemsText += `• ${item.name} - ${item.quantity} × ${item.price} lei = ${itemTotal} lei\n`;
-                });
-            }
-            
-            message = `🆕 COMANDA NOUĂ - AME COFFEE\n\n📦 PRODUSE:\n${itemsText}\n💰 TOTAL: ${total.toFixed(2)} lei\n👤 Nume: ${data.name}\n📞 Telefon: ${data.phone}\n📅 Data ridicare: ${data.pickupDate}\n⏰ Ora ridicare: ${data.pickupTime}\n📝 Instrucțiuni: ${data.instructions}\n\n🌐 www.amecoffee.ro`;
-        }
-        
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        
-        // Create custom modal for WhatsApp confirmation
-        const modal = document.createElement('div');
-        modal.id = 'whatsapp-modal';
-        modal.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); display: flex; justify-content: center; 
-            align-items: center; z-index: 10000; font-family: 'Inter', sans-serif;
-            backdrop-filter: blur(10px);
-        `;
-        
-        const modalContent = document.createElement('div');
-        modalContent.style.cssText = `
-            background: white; padding: 40px; border-radius: 20px; text-align: center; 
-            max-width: 450px; width: 90%; box-shadow: var(--shadow-xl);
-            animation: modalSlideIn 0.4s ease;
-        `;
-        
-        modalContent.innerHTML = `
-            <div style="margin-bottom: 25px;">
-                <div style="font-size: 60px; margin-bottom: 15px; color: var(--success);">✅</div>
-                <h3 style="color: var(--primary-dark); margin-bottom: 10px; font-size: 26px; font-family: 'Playfair Display', serif;">Comandă Finalizată!</h3>
-                <p style="color: var(--text); margin-bottom: 25px; line-height: 1.6;">Apasă butonul de mai jos pentru a trimite comanda pe WhatsApp. Vom confirma comanda în cel mai scurt timp!</p>
-            </div>
-            
-            <a href="${whatsappUrl}" target="_blank" style="
-                display: block; background: #25D366; color: white; padding: 18px 30px; 
-                border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 18px; 
-                margin: 25px 0; transition: var(--transition); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);"
-                onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(37, 211, 102, 0.4)'" 
-                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
-                <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> Deschide WhatsApp
-            </a>
-            
-            <button onclick="document.getElementById('whatsapp-modal').remove()" style="
-                background: var(--primary); color: white; border: none; padding: 14px 28px; 
-                border-radius: 50px; cursor: pointer; font-size: 16px; transition: var(--transition); font-weight: 600;"
-                onmouseover="this.style.background='var(--primary-dark)'; this.style.transform='translateY(-2px)'" 
-                onmouseout="this.style.background='var(--primary)'; this.style.transform='translateY(0)'">
-                <i class="fas fa-times" style="margin-right: 8px;"></i> Închide
-            </button>
-        `;
-        
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-        
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-        
-        // Auto-open WhatsApp after 2 seconds
-        setTimeout(() => {
-            window.open(whatsappUrl, '_blank');
-        }, 2000);
-        
-        return { status: 'success' };
-    }
-
-    // Add CSS for animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Create additional floating elements
-    function createFloatingElements() {
-        const container = document.querySelector('.floating-elements');
-        for (let i = 0; i < 8; i++) {
-            const element = document.createElement('div');
-            element.className = 'floating-element';
-            const size = Math.random() * 80 + 40;
-            element.style.width = `${size}px`;
-            element.style.height = `${size}px`;
-            element.style.top = `${Math.random() * 100}%`;
-            element.style.left = `${Math.random() * 100}%`;
-            element.style.animationDelay = `${Math.random() * 8}s`;
-            element.style.opacity = Math.random() * 0.08 + 0.02;
-            element.style.background = `hsl(${Math.random() * 30 + 20}, 30%, 50%)`;
-            container.appendChild(element);
-        }
-    }
-
-    createFloatingElements();
     </script>
 </body>
 </html>
