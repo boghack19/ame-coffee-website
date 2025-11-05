@@ -27,6 +27,7 @@
             line-height: 1.6;
             color: var(--text);
             background-color: var(--light);
+            overflow-x: hidden;
         }
 
         .container {
@@ -735,7 +736,6 @@
             width: 40px;
             height: 2px;
             background: var(--primary);
-            animation: widthGrow 2s ease-out;
         }
 
         .social-links {
@@ -812,7 +812,7 @@
                 height: auto;
                 background: var(--white);
                 flex-direction: column;
-                padding: 80px 20px 20px;
+                padding: 20px;
                 box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
                 animation: slideDown 0.3s ease;
                 z-index: 1000;
@@ -832,6 +832,7 @@
             .nav-links li {
                 margin: 10px 0;
                 animation: fadeInLeft 0.5s ease both;
+                margin-left: 0;
             }
 
             @keyframes fadeInLeft {
@@ -843,6 +844,7 @@
             .nav-links li:nth-child(2) { animation-delay: 0.2s; }
             .nav-links li:nth-child(3) { animation-delay: 0.3s; }
             .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+            .nav-links li:nth-child(5) { animation-delay: 0.5s; }
 
             .mobile-menu {
                 display: block;
@@ -925,7 +927,7 @@
         /* Extra small devices */
         @media (max-width: 480px) {
             .menu-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
+                grid-template-columns: 1fr !important;
             }
             
             .hero h1 {
@@ -939,6 +941,15 @@
             .discount-poster {
                 width: 95%;
                 padding: 20px;
+            }
+            
+            .menu-categories {
+                gap: 8px;
+            }
+            
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 14px;
             }
         }
         
@@ -957,6 +968,25 @@
             .discount-btn-mobile {
                 display: none;
             }
+        }
+        
+        /* Fix for footer links */
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
         }
     </style>
 </head>
@@ -1057,7 +1087,7 @@
                     <a href="#menu" class="btn">Vezi Meniul</a>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul a;me Coffee">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul A;me Coffee">
                 </div>
             </div>
         </div>
@@ -1149,28 +1179,28 @@
 
         <div class="menu-item">
             <img src="https://plus.unsplash.com/premium_photo-1695028378225-97fbe39df62a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" 
-            alt="Sandviș Proaspăt">
+            alt="Tiramisu">
             <div class="menu-item-content">
                 <h3>Tiramisu<span class="price">16 lei</span></h3>
-                <p>Desert rafinat cu arome intense de cafea, cremă de mascarpone delicată și pișcoturi savuroase, finalizat cu cacao amăruie</p>
+                <p>Desert rafinat cu arome intense de cafea, cremă de mascarpone și pișcoturi</p>
             </div>
         </div>
 
         <div class="menu-item">
             <img src="https://images.unsplash.com/photo-1605190557072-1fe6a230ee65?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=689" 
-            alt="Quiche Lorraine">
+            alt="Negresa">
             <div class="menu-item-content">
                 <h3>Negresa<span class="price">11 lei</span></h3>
-                <p>Pentru iubitorii de ciocolată - combinație intensă de cacao, cremă de ciocolată și un strat de nuci crocante</p>
+                <p>Pentru iubitorii de ciocolată - combinație intensă de cacao și nuci crocante</p>
             </div>
         </div>
 
         <div class="menu-item">
             <img src="https://images.unsplash.com/photo-1740731304872-ddf00532f94f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" 
-            alt="Salată Caesar">
+            alt="Chec cu fructe">
             <div class="menu-item-content">
                 <h3>Chec cu fructe <span class="price">25 lei</span></h3>
-                <p>Chec pufos cu fructe de sezon proaspete, aromat cu vanilie și o esență de lămâie pentru prospețime</p>
+                <p>Chec pufos cu fructe de sezon proaspete, aromat cu vanilie și lămâie</p>
             </div>
         </div>
     </div>
@@ -1320,94 +1350,118 @@
         });
     }
 
-    // ========== EVENT LISTENERS ==========
-document.addEventListener('DOMContentLoaded', function() {
-    initMenuCategories();
-    
-    // Add discount button to mobile menu
-    const navLinks = document.querySelector('.nav-links');
-    const discountBtnMobile = document.createElement('li');
-    discountBtnMobile.innerHTML = '<button class="discount-btn-mobile"><i class="fas fa-gift"></i> Oferte Speciale</button>';
-    navLinks.appendChild(discountBtnMobile);
-    
-    // INITIALIZEAZĂ discount poster DUPĂ ce am adăugat butonul în meniu
-    initDiscountPoster();
-    
-    document.querySelector('.mobile-menu').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('active');
-    });
+    // ========== DISCOUNT POSTER ==========
+    function initDiscountPoster() {
+        const discountBtns = document.querySelectorAll('.discount-btn, .discount-btn-mobile');
+        const poster = document.querySelector('.discount-poster');
+        const overlay = document.querySelector('.discount-poster-overlay');
+        const closeBtn = document.querySelector('.close-poster');
+        
+        discountBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                poster.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeBtn.addEventListener('click', function() {
+            poster.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        overlay.addEventListener('click', function() {
+            poster.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    // ========== EVENT LISTENERS ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        initMenuCategories();
+        
+        // Add discount button to mobile menu
+        const navLinks = document.querySelector('.nav-links');
+        const discountBtnMobile = document.createElement('li');
+        discountBtnMobile.innerHTML = '<button class="discount-btn-mobile"><i class="fas fa-gift"></i> Oferte Speciale</button>';
+        navLinks.appendChild(discountBtnMobile);
+        
+        // Initialize discount poster after adding the mobile button
+        initDiscountPoster();
+        
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.scrollY > 100;
+            
+            header.classList.toggle('scrolled', scrolled);
+            
+            if(window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const targetId = this.getAttribute('href');
-            if(targetId === '#') return;
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
             
-            const targetElement = document.querySelector(targetId);
-            if(targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                document.querySelector('.nav-links').classList.remove('active');
-            }
+            submitButton.disabled = true;
+            submitButton.textContent = 'Se trimite...';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert(`Mulțumim, ${document.getElementById('name').value}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
+                this.reset();
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }, 1500);
         });
     });
-
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        const scrolled = window.scrollY > 100;
-        
-        header.classList.toggle('scrolled', scrolled);
-        
-        if(window.scrollY > 100) {
-            header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        }
-    });
-
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const submitButton = this.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        
-        submitButton.disabled = true;
-        submitButton.textContent = 'Se trimite...';
-        
-        // Simulate form submission
-        setTimeout(() => {
-            alert(`Mulțumim, ${document.getElementById('name').value}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
-            this.reset();
-            submitButton.disabled = false;
-            submitButton.textContent = originalText;
-        }, 1500);
-    });
-});
-
-
-            
-            
 
     // Add floating elements
     function createFloatingElements() {
