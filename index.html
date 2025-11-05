@@ -27,7 +27,6 @@
             line-height: 1.6;
             color: var(--text);
             background-color: var(--light);
-            overflow-x: hidden;
         }
 
         .container {
@@ -736,6 +735,7 @@
             width: 40px;
             height: 2px;
             background: var(--primary);
+            animation: widthGrow 2s ease-out;
         }
 
         .social-links {
@@ -812,7 +812,7 @@
                 height: auto;
                 background: var(--white);
                 flex-direction: column;
-                padding: 20px;
+                padding: 80px 20px 20px;
                 box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
                 animation: slideDown 0.3s ease;
                 z-index: 1000;
@@ -832,7 +832,6 @@
             .nav-links li {
                 margin: 10px 0;
                 animation: fadeInLeft 0.5s ease both;
-                margin-left: 0;
             }
 
             @keyframes fadeInLeft {
@@ -844,7 +843,6 @@
             .nav-links li:nth-child(2) { animation-delay: 0.2s; }
             .nav-links li:nth-child(3) { animation-delay: 0.3s; }
             .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-            .nav-links li:nth-child(5) { animation-delay: 0.5s; }
 
             .mobile-menu {
                 display: block;
@@ -927,7 +925,7 @@
         /* Extra small devices */
         @media (max-width: 480px) {
             .menu-grid {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: repeat(2, 1fr) !important;
             }
             
             .hero h1 {
@@ -941,15 +939,6 @@
             .discount-poster {
                 width: 95%;
                 padding: 20px;
-            }
-            
-            .menu-categories {
-                gap: 8px;
-            }
-            
-            .category-btn {
-                padding: 8px 15px;
-                font-size: 14px;
             }
         }
         
@@ -968,25 +957,6 @@
             .discount-btn-mobile {
                 display: none;
             }
-        }
-        
-        /* Fix for footer links */
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 8px;
-        }
-        
-        .footer-column ul li a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-column ul li a:hover {
-            color: var(--secondary);
         }
     </style>
 </head>
@@ -1087,7 +1057,7 @@
                     <a href="#menu" class="btn">Vezi Meniul</a>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul A;me Coffee">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Interiorul a;me Coffee">
                 </div>
             </div>
         </div>
@@ -1114,7 +1084,7 @@
         <div class="menu-item">
             <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Espresso">
             <div class="menu-item-content">
-                <h3>Espresso <span class="price">12 lei</span></h3>
+                <h3>Espresso <span class="price">11 lei</span></h3>
                 <p>Cafea puternică și concentrată - cea mai simplă formă de cafea</p>
             </div>
         </div>
@@ -1122,7 +1092,7 @@
         <div class="menu-item">
             <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cappuccino">
             <div class="menu-item-content">
-                <h3>Cappuccino <span class="price">15 lei</span></h3>
+                <h3>Cappuccino <span class="price">17 lei</span></h3>
                 <p>Cafea cu lapte spumat și puțină spumă deasupra - cel mai popular tip de cafea cu lapte</p>
             </div>
         </div>
@@ -1131,7 +1101,7 @@
             <img src="https://images.unsplash.com/photo-1561882468-9110e03e0f78?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1887" 
             alt="Latte">
             <div class="menu-item-content">
-                <h3>Latte <span class="price">16 lei</span></h3>
+                <h3>Latte <span class="price">19 lei</span></h3>
                 <p>Cafea cu mult lapte și puțină spumă - mai puțin puternică, foarte cremoasă</p>
             </div>
         </div>
@@ -1140,7 +1110,7 @@
             <img src="https://images.unsplash.com/photo-1580661869408-55ab23f2ca6e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=435" 
             alt="Americano">
             <div class="menu-item-content">
-                <h3>Americano <span class="price">13 lei</span></h3>
+                <h3>Americano <span class="price">14 lei</span></h3>
                 <p>Cafea lungă făcută din espresso cu apă fierbinte - similară cu cafeaua de filtru</p>
             </div>
         </div>
@@ -1149,7 +1119,7 @@
             <img src="https://images.unsplash.com/photo-1596078841242-12f73dc697c6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=464" 
             alt="Mocha">
             <div class="menu-item-content">
-                <h3>Mocha <span class="price">18 lei</span></h3>
+                <h3> Espresso Double<span class="price">15 lei</span></h3>
                 <p>Cafea cu ciocolată și lapte - ca o ciocolată caldă cu cafea</p>
             </div>
         </div>
@@ -1158,7 +1128,7 @@
             <img src="https://plus.unsplash.com/premium_photo-1664970900098-2676029e6a99?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870" 
             alt="Flat White">
             <div class="menu-item-content">
-                <h3>Flat White <span class="price">17 lei</span></h3>
+                <h3>Flatt <span class="price">22 lei</span></h3>
                 <p>Cafea dublă cu lapte cremos - mai puternică decât Latte</p>
             </div>
         </div>
@@ -1172,35 +1142,35 @@
             <img src="https://images.unsplash.com/photo-1599940778173-e276d4acb2bb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=855" 
             alt="Croissant">
             <div class="menu-item-content">
-                <h3>Croissant <span class="price">8 lei</span></h3>
+                <h3>Croissant <span class="price">10 lei</span></h3>
                 <p>Croissant proaspăt cu unt, crocant și pufos.</p>
             </div>
         </div>
 
         <div class="menu-item">
             <img src="https://plus.unsplash.com/premium_photo-1695028378225-97fbe39df62a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" 
-            alt="Tiramisu">
+            alt="Sandviș Proaspăt">
             <div class="menu-item-content">
                 <h3>Tiramisu<span class="price">16 lei</span></h3>
-                <p>Desert rafinat cu arome intense de cafea, cremă de mascarpone și pișcoturi</p>
+                <p>Desert rafinat cu arome intense de cafea, cremă de mascarpone delicată și pișcoturi savuroase, finalizat cu cacao amăruie</p>
             </div>
         </div>
 
         <div class="menu-item">
             <img src="https://images.unsplash.com/photo-1605190557072-1fe6a230ee65?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=689" 
-            alt="Negresa">
+            alt="Quiche Lorraine">
             <div class="menu-item-content">
-                <h3>Negresa<span class="price">11 lei</span></h3>
-                <p>Pentru iubitorii de ciocolată - combinație intensă de cacao și nuci crocante</p>
+                <h3>Brownie<span class="price">11 lei</span></h3>
+                <p>Pentru iubitorii de ciocolată - combinație intensă de cacao, cremă de ciocolată și un strat de nuci crocante</p>
             </div>
         </div>
 
         <div class="menu-item">
             <img src="https://images.unsplash.com/photo-1740731304872-ddf00532f94f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" 
-            alt="Chec cu fructe">
+            alt="Salată Caesar">
             <div class="menu-item-content">
                 <h3>Chec cu fructe <span class="price">25 lei</span></h3>
-                <p>Chec pufos cu fructe de sezon proaspete, aromat cu vanilie și lămâie</p>
+                <p>Chec pufos cu fructe de sezon proaspete, aromat cu vanilie și o esență de lămâie pentru prospețime</p>
             </div>
         </div>
     </div>
@@ -1329,139 +1299,146 @@
 
     <script>
     // ========== MENU CATEGORIES ==========
-    function initMenuCategories() {
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const categories = document.querySelectorAll('.menu-category');
-        
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                categories.forEach(cat => {
-                    cat.classList.remove('active');
-                    if (cat.id === category) {
-                        cat.classList.add('active');
-                    }
-                });
-            });
-        });
-    }
-
-    // ========== DISCOUNT POSTER ==========
-    function initDiscountPoster() {
-        const discountBtns = document.querySelectorAll('.discount-btn, .discount-btn-mobile');
-        const poster = document.querySelector('.discount-poster');
-        const overlay = document.querySelector('.discount-poster-overlay');
-        const closeBtn = document.querySelector('.close-poster');
-        
-        discountBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                poster.classList.add('active');
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        closeBtn.addEventListener('click', function() {
-            poster.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        overlay.addEventListener('click', function() {
-            poster.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    }
-
-    // ========== EVENT LISTENERS ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        initMenuCategories();
-        
-        // Add discount button to mobile menu
-        const navLinks = document.querySelector('.nav-links');
-        const discountBtnMobile = document.createElement('li');
-        discountBtnMobile.innerHTML = '<button class="discount-btn-mobile"><i class="fas fa-gift"></i> Oferte Speciale</button>';
-        navLinks.appendChild(discountBtnMobile);
-        
-        // Initialize discount poster after adding the mobile button
-        initDiscountPoster();
-        
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('.nav-links').classList.remove('active');
+function initMenuCategories() {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const categories = document.querySelectorAll('.menu-category');
+    
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            categories.forEach(cat => {
+                cat.classList.remove('active');
+                if (cat.id === category) {
+                    cat.classList.add('active');
                 }
             });
-        });
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const scrolled = window.scrollY > 100;
-            
-            header.classList.toggle('scrolled', scrolled);
-            
-            if(window.scrollY > 100) {
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            }
-        });
-
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            submitButton.disabled = true;
-            submitButton.textContent = 'Se trimite...';
-            
-            // Simulate form submission
-            setTimeout(() => {
-                alert(`Mulțumim, ${document.getElementById('name').value}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
-                this.reset();
-                submitButton.disabled = false;
-                submitButton.textContent = originalText;
-            }, 1500);
         });
     });
+}
+
+// ========== DISCOUNT POSTER ==========
+function initDiscountPoster() {
+    const discountBtns = document.querySelectorAll('.discount-btn, .discount-btn-mobile');
+    const poster = document.querySelector('.discount-poster');
+    const overlay = document.querySelector('.discount-poster-overlay');
+    const closeBtn = document.querySelector('.close-poster');
+    
+    discountBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            poster.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    closeBtn.addEventListener('click', function() {
+        poster.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    overlay.addEventListener('click', function() {
+        poster.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
+
+// ========== EVENT LISTENERS ==========
+document.addEventListener('DOMContentLoaded', function() {
+    initMenuCategories();
+    
+    // Add discount button to mobile menu
+    const navLinks = document.querySelector('.nav-links');
+    const discountBtnMobile = document.createElement('li');
+    discountBtnMobile.innerHTML = '<button class="discount-btn-mobile"><i class="fas fa-gift"></i> Oferte Speciale</button>';
+    navLinks.appendChild(discountBtnMobile);
+    
+    // INITIALIZEAZĂ discount poster DUPĂ ce am adăugat butonul în meniu
+    initDiscountPoster();
+    
+    document.querySelector('.mobile-menu').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+                
+
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if(targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if(targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                document.querySelector('.nav-links').classList.remove('active');
+            }
+        });
+    });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        const scrolled = window.scrollY > 100;
+        
+        header.classList.toggle('scrolled', scrolled);
+        
+        if(window.scrollY > 100) {
+            header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+        } else {
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        }
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        submitButton.disabled = true;
+        submitButton.textContent = 'Se trimite...';
+        
+        // Simulate form submission
+        setTimeout(() => {
+            alert(`Mulțumim, ${document.getElementById('name').value}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
+            this.reset();
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }, 1500);
+    });
+});
+
+
+            
+            
 
     // Add floating elements
     function createFloatingElements() {
