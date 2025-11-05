@@ -1320,116 +1320,94 @@
         });
     }
 
-    // ========== DISCOUNT POSTER ==========
-    function initDiscountPoster() {
-        const discountBtns = document.querySelectorAll('.discount-btn, .discount-btn-desktop .discount-btn, .discount-btn-mobile');
-        const poster = document.querySelector('.discount-poster');
-        const overlay = document.querySelector('.discount-poster-overlay');
-        const closeBtn = document.querySelector('.close-poster');
-        
-        discountBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                poster.classList.add('active');
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        closeBtn.addEventListener('click', function() {
-            poster.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        overlay.addEventListener('click', function() {
-            poster.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    }
-
     // ========== EVENT LISTENERS ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        initMenuCategories();
-        initDiscountPoster();
-        
-        // Add discount button to mobile menu
-        const navLinks = document.querySelector('.nav-links');
-        const discountBtnMobile = document.createElement('li');
-        discountBtnMobile.innerHTML = '<button class="discount-btn-mobile"><i class="fas fa-gift"></i> Oferte Speciale</button>';
-        navLinks.appendChild(discountBtnMobile);
-        
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    initMenuCategories();
+    
+    // Add discount button to mobile menu
+    const navLinks = document.querySelector('.nav-links');
+    const discountBtnMobile = document.createElement('li');
+    discountBtnMobile.innerHTML = '<button class="discount-btn-mobile"><i class="fas fa-gift"></i> Oferte Speciale</button>';
+    navLinks.appendChild(discountBtnMobile);
+    
+    // INITIALIZEAZĂ discount poster DUPĂ ce am adăugat butonul în meniu
+    initDiscountPoster();
+    
+    document.querySelector('.mobile-menu').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('.nav-links').classList.remove('active');
-                }
-            });
-        });
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const scrolled = window.scrollY > 100;
-            
-            header.classList.toggle('scrolled', scrolled);
-            
-            if(window.scrollY > 100) {
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            }
-        });
-
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
+            const targetId = this.getAttribute('href');
+            if(targetId === '#') return;
             
-            submitButton.disabled = true;
-            submitButton.textContent = 'Se trimite...';
-            
-            // Simulate form submission
-            setTimeout(() => {
-                alert(`Mulțumim, ${document.getElementById('name').value}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
-                this.reset();
-                submitButton.disabled = false;
-                submitButton.textContent = originalText;
-            }, 1500);
+            const targetElement = document.querySelector(targetId);
+            if(targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                document.querySelector('.nav-links').classList.remove('active');
+            }
         });
     });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        const scrolled = window.scrollY > 100;
+        
+        header.classList.toggle('scrolled', scrolled);
+        
+        if(window.scrollY > 100) {
+            header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+        } else {
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        }
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        submitButton.disabled = true;
+        submitButton.textContent = 'Se trimite...';
+        
+        // Simulate form submission
+        setTimeout(() => {
+            alert(`Mulțumim, ${document.getElementById('name').value}! Mesajul tău a fost trimis. Te vom contacta în curând.`);
+            this.reset();
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }, 1500);
+    });
+});
+
+
+            
+            
 
     // Add floating elements
     function createFloatingElements() {
